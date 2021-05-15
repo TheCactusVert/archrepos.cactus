@@ -1,0 +1,9 @@
+[Unit]
+Description=Alternative private front-end to Reddit
+After=network.service
+
+[Service]
+ExecStart=/usr/bin/libreddit
+
+[Install]
+WantedBy=default.target
