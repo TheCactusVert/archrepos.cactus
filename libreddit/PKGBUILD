@@ -1,6 +1,6 @@
 # Maintainer: spikecodes <19519553+spikecodes@users.noreply.github.com>
 pkgname=libreddit
-pkgver=0.14.3
+pkgver=0.14.4
 pkgrel=1
 pkgdesc="Alternative private front-end to Reddit"
 arch=('x86_64' 'armv7h')
