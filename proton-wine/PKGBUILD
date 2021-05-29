@@ -108,13 +108,13 @@ source=("https://github.com/ValveSoftware/wine/archive/refs/tags/${pkgname}-${pk
 if [ "$CARCH" = 'i686' ] 
 then
     # strip lib32 etc. on i686
-    _depends=(${_depends[@]/*32-*/})
-    makedepends=(${makedepends[@]/*32-*/} ${_depends[@]})
+    depends=(${depends[@]/*32-*/})
+    makedepends=(${makedepends[@]/*32-*/} ${depends[@]})
     optdepends=(${optdepends[@]/*32-*/})
     provides=("wine=${pkgver}" "wine-valve=${pkgver}")
     conflicts=('wine' 'wine-staging' 'wine-staging-git')
 else
-    makedepends=(${makedepends[@]} ${_depends[@]})
+    makedepends=(${makedepends[@]} ${depends[@]})
     provides=("wine=${pkgver}" "bin32-wine=${pkgver}" "wine-wow64=${pkgver}" "wine-valve=${pkgver}")
     conflicts=('wine' 'wine-staging' 'wine-staging-git' 'bin32-wine' 'wine-wow64')
     replaces=('bin32-wine')
@@ -159,8 +159,7 @@ build() {
         
         local _wine32opts=(
                     '--libdir=/usr/lib32'
-                    "--with-wine64=${srcdir}/${pkgname}-64-build"
-        )
+                    "--with-wine64=${srcdir}/${pkgname}-64-build")
         
         export PKG_CONFIG_PATH='/usr/lib32/pkgconfig'
     fi
@@ -180,8 +179,6 @@ build() {
 }
 
 package() {
-    depends=(${_depends[@]})
-    
     # package wine 32-bit
     # (according to the wine wiki, this reverse 32-bit/64-bit packaging order is important)
     msg2 'Packaging Wine-32...'
