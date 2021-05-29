@@ -12,7 +12,7 @@ pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('i686' 'x86_64')
 url='https://github.com/ValveSoftware/wine.git'
 license=('LGPL')
-_depends=(
+depends=(
     'sdl2'                  'lib32-sdl2' #OK
     'fontconfig'            'lib32-fontconfig' #OK
     'lcms2'                 'lib32-lcms2' #OK
@@ -72,29 +72,31 @@ makedepends=(
     'gsm' #OK
 )
 optdepends=(
-#    'giflib'                'lib32-giflib'
-    'libpng'                'lib32-libpng' #OK
-    'libjpeg-turbo'         'lib32-libjpeg-turbo' #OK
-    'libtiff'               'lib32-libtiff' #OK
-    'libldap'               'lib32-libldap' #OK
-    'libusb'                'lib32-libusb' #OK
-    'gnutls'                'lib32-gnutls' #OK
-    'mpg123'                'lib32-mpg123' #OK
-    'openal'                'lib32-openal' #OK
-    'v4l-utils'             'lib32-v4l-utils' #OK
-    'libpulse'              'lib32-libpulse' #OK
-    'alsa-plugins'          'lib32-alsa-plugins'
-    'alsa-lib'              'lib32-alsa-lib' #OK
-    'libxcomposite'         'lib32-libxcomposite'
-    'libxinerama'           'lib32-libxinerama'
-#    'ncurses'               'lib32-ncurses'
-    'ocl-icd'               'lib32-ocl-icd' #OK
-    'libxslt'               'lib32-libxslt' #OK
-    'gstreamer'             'lib32-gstreamer' #OK
-    'gst-plugins-base-libs' 'lib32-gst-plugins-base-libs' #OK
-    'vulkan-icd-loader'     'lib32-vulkan-icd-loader' #OK
-    'libcups'
-    'smbclient' #OK
+    'libpng: Image format decoding.'				'lib32-libpng: Image format decoding.' #OK
+    'libjpeg-turbo: Image format decoding.'			'lib32-libjpeg-turbo: Image format decoding.' #OK
+    'libtiff: Image format decoding.'				'lib32-libtiff: Image format decoding.' #OK
+    'libldap: LDAP remote directory protocol.'			'lib32-libldap: LDAP remote directory protocol.' #OK
+    'libusb: USB device support.'				'lib32-libusb: USB device support.' #OK
+    'gnutls: Cryptography'					'lib32-gnutls: Cryptography.' #OK
+    'mpg123: mp3 decoding.'					'lib32-mpg123: mp3 decoding.' #OK
+    'openal: Audio engine.'					'lib32-openal: Audio engine.' #OK
+    'v4l-utils: Video capture.'					'lib32-v4l-utils: Video capture.' #OK
+    'libpulse: Sound backend.'					'lib32-libpulse: Sound backend.' #OK
+    'alsa-lib: Sound backend.'					'lib32-alsa-lib: Sound backend.' #OK
+    'ocl-icd: Parallel computing / GPGPU.'			'lib32-ocl-icd: Parallel computing / GPGPU.' #OK
+    'libxslt: XML parsing.'					'lib32-libxslt: XML parsing.' #OK
+    'gstreamer: Multimedia playback.'				'lib32-gstreamer: Multimedia playback.' #OK
+    'gst-plugins-base-libs: Multimedia playback.'		'lib32-gst-plugins-base-libs: Multimedia playback.' #OK
+    'vulkan-icd-loader: Hardware-accelerated/3D graphics.'	'lib32-vulkan-icd-loader: Hardware-accelerated/3D graphics.' #OK
+    'libcups: Printing.'					'lib32-libcups: Printing.' #OK
+    'smbclient: Networking.' #OK
+
+    'libxcomposite: Window management.'				'lib32-libxcomposite: Window management.'
+    'libxinerama: Window management.'				'lib32-libxinerama: Window management.'
+
+#    'giflib'                                                   'lib32-giflib'
+#    'alsa-plugins'                                             'lib32-alsa-plugins'
+#    'ncurses'               					'lib32-ncurses'
 #    'dosbox'
 )
 options=('staticlibs')
