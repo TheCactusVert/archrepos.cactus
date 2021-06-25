@@ -7,7 +7,7 @@
 # Contributor: heavysink <winstonwu91 at gmail>
 pkgname=proton-wine
 pkgver=6.3
-pkgrel=4
+pkgrel=5
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('i686' 'x86_64')
 url='https://github.com/ValveSoftware/wine.git'
