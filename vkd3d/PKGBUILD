@@ -7,7 +7,7 @@ license=('LGPL')
 arch=('x86_64')
 depends=('wine')
 provides=("winevkd3d")
-options=(!strip)
+install="$pkgname.install"
 source=("https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v${pkgver}/vkd3d-proton-${pkgver}.tar.zst")
 sha256sums=('SKIP')
 

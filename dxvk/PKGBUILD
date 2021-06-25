@@ -7,7 +7,7 @@ license=('zlib/libpng')
 arch=('x86_64')
 depends=('wine')
 provides=("winedxvk")
-options=(!strip)
+install="$pkgname.install"
 source=( "https://github.com/doitsujin/dxvk/releases/download/v${pkgver}/dxvk-${pkgver}.tar.gz")
 sha256sums=('SKIP')
 
