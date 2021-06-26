@@ -1,0 +1,167 @@
+pkgname=wine-proton
+pkgver=6.3
+pkgrel=4
+pkgdesc='A compatibility layer for running Windows programs (Valve version)'
+arch=('x86_64')
+url='https://github.com/ValveSoftware/wine.git'
+license=('LGPL')
+depends=(
+    'sdl2'                 
+    'fontconfig'          
+    'lcms2'              
+    'libxml2'           
+    'libxslt'          
+    'libxcursor'      
+    'libxrandr'      
+    'libxdamage'    
+    'libxi'        
+#    'gettext'    
+    'freetype2'  
+#    'glu'                
+    'libsm'              
+    'gcc-libs'          
+    'libpcap'          
+    'libgphoto2' #OK
+    'faudio'       
+    'vkd3d' #OK
+)
+makedepends=(
+#    'autoconf'
+#    'ncurses'
+    'bison' #OK
+#    'perl'
+    'flex' #OK
+    'pkgconf'
+    'gcc>=4.5.0-2' #OK
+#    'giflib'     
+    'libpng'     
+    'libjpeg-turbo'
+    'libtiff'     
+    'gnutls'     
+    'libxinerama'
+    'libxcomposite'   
+    'libxmu'         
+    'libxxf86vm'    
+    'libldap'      
+    'libcups'     
+    'libusb'     
+    'krb5'      
+    'mpg123'            
+    'openal'           
+    'v4l-utils'       
+    'libpulse'       
+    'alsa-lib'      
+    'libxcomposite'
+    'libunwind'   
+    'mesa'       
+#    'libgl'    
+    'opencl-headers' #OK
+    'ocl-icd'              
+    'libxslt'             
+    'gstreamer'          
+    'gst-plugins-base-libs'
+    'vulkan-headers' #OK
+    'vulkan-icd-loader'   
+    'smbclient' #OK
+    'gsm' #OK
+
+    ${depends[@]}
+)
+optdepends=(
+    'libpng: Image format decoding.'			
+    'libjpeg-turbo: Image format decoding.'	
+    'libtiff: Image format decoding.'	
+    'libldap: LDAP remote directory protocol.'		
+    'libusb: USB device support.'		
+    'gnutls: Cryptography'		
+    'mpg123: mp3 decoding.'	
+    'openal: Audio engine.'
+    'v4l-utils: Video capture.'	
+    'libpulse: Sound backend.'
+    'alsa-lib: Sound backend.'
+    'ocl-icd: Parallel computing / GPGPU.'	
+    'libxslt: XML parsing.'		
+    'gstreamer: Multimedia playback.'
+    'gst-plugins-base-libs: Multimedia playback.'
+    'vulkan-icd-loader: Hardware-accelerated/3D graphics.'
+    'libcups: Printing.'				
+    'smbclient: Networking.' #OK
+
+    'libxcomposite: Window management.'		
+    'libxinerama: Window management.'	
+
+#    'giflib'                          
+#    'alsa-plugins'                   
+#    'ncurses'               	
+#    'dosbox'
+)
+
+options=('staticlibs')
+install="$pkgname.install"
+source=("https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-${pkgver}-${pkgrel}.tar.gz"
+        '30-win32-aliases.conf'
+        'wine-binfmt.conf')
+sha256sums=('4859579b01ce8dfe876b35222916b960685a29e1a6e8dd7d741fd0fbf9c06d36' # tar.gz
+            '9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
+            '6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4')
+
+provides=("wine=${pkgver}")
+conflicts=('wine')
+
+
+prepare() {
+	cd "${pkgname}-wine-${pkgver}-${pkgrel}/"
+    
+	# workaround for FS#55128
+	# https://bugs.archlinux.org/task/55128
+	# https://bugs.winehq.org/show_bug.cgi?id=43530
+	export CFLAGS="${CFLAGS/-fno-plt/}"
+	export LDFLAGS="${LDFLAGS/,-z,now/}"
+
+	# fix path of opencl headers
+	sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
+
+	# delete old build dirs (from previous builds) and make new ones
+        rm -rf "$pkgname"-64-build
+}
+
+build() {
+	# build wine 64-bit
+        msg2 'Building Wine-64...'
+
+        mkdir "$pkgname"-64-build
+        cd    "$pkgname"-64-build
+        
+        ../"${pkgname}-wine-${pkgver}-${pkgrel}"/configure \
+                          --prefix='/usr' \
+                          --libdir='/usr/lib' \
+                          --with-x \
+                          --with-gstreamer \
+                          --enable-win64 \
+			  --disable-tests
+        make -j 8
+}
+
+package() {
+        # package wine 64-bit
+        msg2 'Packaging Wine-64...'
+        
+        cd "${srcdir}/${pkgname}"-64-build
+        
+        make prefix="$pkgdir/usr" \
+             libdir="$pkgdir/usr/lib" \
+             dlldir="$pkgdir/usr/lib/wine" install
+    
+	# font aliasing settings for Win32 applications
+	install -d "$pkgdir"/etc/fonts/conf.{avail,d}
+	install -m644 "${srcdir}/30-win32-aliases.conf" "${pkgdir}/etc/fonts/conf.avail"
+	ln -s ../conf.avail/30-win32-aliases.conf       "${pkgdir}/etc/fonts/conf.d/30-win32-aliases.conf"
+    
+	# wine binfmt
+	install -D -m644 "${srcdir}/wine-binfmt.conf"   "${pkgdir}/usr/lib/binfmt.d/wine.conf"
+
+	#wine list.h
+	for file in ${srcdir}/${pkgname}-wine-${pkgver}-${pkgrel}/include/wine/*.h; do
+	    cp -n $file "${pkgdir}/usr/include/wine/"
+	done
+}
