@@ -12,9 +12,9 @@ source=( "https://github.com/doitsujin/dxvk/releases/download/v${pkgver}/dxvk-${
 sha256sums=('SKIP')
 
 package() {
-        install -Dm755 "dxvk-$pkgver"/x32/* -t "$pkgdir/usr/lib/wine/fakedlls/dxvk/x32"
-        install -Dm755 "dxvk-$pkgver"/x64/* -t "$pkgdir/usr/lib/wine/fakedlls/dxvk/x64"
-	install "dxvk-$pkgver"/setup_dxvk.sh -t "$pkgdir/usr/lib/wine/fakedlls/dxvk/"
+        install -Dm755 "dxvk-$pkgver"/x32/* -t "$pkgdir/usr/lib/wine/dxvk-windows/x32"
+        install -Dm755 "dxvk-$pkgver"/x64/* -t "$pkgdir/usr/lib/wine/dxvk-windows/x64"
+	install "dxvk-$pkgver"/setup_dxvk.sh -t "$pkgdir/usr/lib/wine/dxvk-windows/"
         install -d "$pkgdir/usr/bin"
-        ln -s /usr/lib/wine/fakedlls/dxvk/setup_dxvk.sh "$pkgdir/usr/bin/winedxvk"
+        ln -s /usr/lib/wine/dxvk-windows/setup_dxvk.sh "$pkgdir/usr/bin/winedxvk"
 }
