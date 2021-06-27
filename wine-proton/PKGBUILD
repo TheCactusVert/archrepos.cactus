@@ -1,6 +1,6 @@
 pkgname=wine-proton
 pkgver=6.3
-pkgrel=4
+pkgrel=5
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'
@@ -101,7 +101,7 @@ install="$pkgname.install"
 source=("https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-${pkgver}-${pkgrel}.tar.gz"
         '30-win32-aliases.conf'
         'wine-binfmt.conf')
-sha256sums=('4859579b01ce8dfe876b35222916b960685a29e1a6e8dd7d741fd0fbf9c06d36' # tar.gz
+sha256sums=('653b2681bc9a884187b9ba0daa365615632e8bde7b07e30f8ca198752ff49542'
             '9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
             '6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4')
 
@@ -122,7 +122,7 @@ prepare() {
 	sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
 
 	# delete old build dirs (from previous builds) and make new ones
-        rm -rf "$pkgname"-64-build
+	rm -rf "$pkgname"-64-build
 }
 
 build() {
@@ -133,12 +133,12 @@ build() {
         cd    "$pkgname"-64-build
         
         ../"${pkgname}-wine-${pkgver}-${pkgrel}"/configure \
-                          --prefix='/usr' \
-                          --libdir='/usr/lib' \
-                          --with-x \
-                          --with-gstreamer \
-                          --enable-win64 \
-			  --disable-tests
+                		--prefix='/usr' \
+                		--libdir='/usr/lib' \
+                        	--with-x \
+				--with-gstreamer \
+                		--enable-win64 \
+				--disable-tests
         make -j 8
 }
 
@@ -160,8 +160,11 @@ package() {
 	# wine binfmt
 	install -D -m644 "${srcdir}/wine-binfmt.conf"   "${pkgdir}/usr/lib/binfmt.d/wine.conf"
 
-	#wine list.h
+	# wine list.h
 	for file in ${srcdir}/${pkgname}-wine-${pkgver}-${pkgrel}/include/wine/*.h; do
 	    cp -n $file "${pkgdir}/usr/include/wine/"
 	done
+
+	# wine64 to wine
+	ln -s /usr/bin/wine64 $pkgdir/usr/bin/wine
 }
