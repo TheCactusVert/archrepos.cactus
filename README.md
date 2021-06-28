@@ -5,6 +5,7 @@
 Add these lines to /etc/pacman.conf:
 ```bash
 [gavrois]
+SigLevel = Optional DatabaseOptional
 Server = https://arch.gavrois.fr/$arch
 ```
 
@@ -14,8 +15,8 @@ Use the following commands:
 ```bash
 doas pacman -S wine-proton dxvk-winelib vkd3d-winelib
 winedxvk install --symlink # With or without WINEPREFIX
-winevkd3d install --symlink
+winevkd3d install --symlink # With or without WINEPREFIX
 ```
 
-wine-proton is compiled only in 64 bits.
-Use wine64 to run your game (or app).
+`wine-proton` is compiled only in 64 bits.
+Use `wine64` to run your game (or app).
