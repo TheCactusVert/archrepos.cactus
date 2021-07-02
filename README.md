@@ -2,10 +2,17 @@
 
 ## Adding the repos
 
-Add these lines to /etc/pacman.conf:
+Run the following commands:
+
+```bash
+doas pacman-key --keyserver hkps://keys.openpgp.org/ --recv-keys '72CA153D0D0A6824'
+doas pacman-key --lsign-key '72CA153D0D0A6824'
+```
+
+Add these lines to `/etc/pacman.conf`:
+
 ```bash
 [gavrois]
-SigLevel = Optional DatabaseOptional
 Server = https://arch.gavrois.fr/$arch
 ```
 
