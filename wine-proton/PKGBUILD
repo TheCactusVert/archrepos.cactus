@@ -164,7 +164,4 @@ package() {
 	for file in ${srcdir}/${pkgname}-wine-${pkgver}-${pkgrel}/include/wine/*.h; do
 	    cp -n $file "${pkgdir}/usr/include/wine/"
 	done
-
-	# wine64 to wine
-	ln -s /usr/bin/wine64 $pkgdir/usr/bin/wine
 }
