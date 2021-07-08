@@ -139,7 +139,7 @@ build() {
 				--with-gstreamer \
                 		--enable-win64 \
 				--disable-tests
-        make -j 8
+        make -j8
 }
 
 package() {
