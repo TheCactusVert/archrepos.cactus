@@ -27,3 +27,13 @@ winevkd3d install --symlink # With or without WINEPREFIX
 
 `wine-proton` is compiled only in 64 bits.
 Use `wine64` to run your game (or app).
+
+## Installing xow
+
+```bash
+doas pacman -S xow
+doas systemctl enable xow
+doas systemctl start xow
+```
+
+Do not use `libusb` on version 1.0.24-2.
