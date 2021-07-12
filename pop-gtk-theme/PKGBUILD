@@ -1,14 +1,14 @@
 pkgname=pop-gtk-theme
 pkgver="5.3.3"
-pkgrel=1
+pkgrel=2
 pkgdesc="System76 Pop GTK+ Theme"
-pkgcommit=c5f700d
+pkgcommit=11bcd41
 arch=('any')
 url='https://github.com/pop-os/gtk-theme'
 license=('LGPL2.1' 'CCPL' 'GPL3')
 makedepends=('sassc' 'meson')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pop-os/gtk-theme/archive/${pkgcommit}.tar.gz")
-sha512sums=('35fade9cd6c6cc6555dd7d9080482a8cf72603fd6a20fa632620f36adda4a14c0fd5a91646bf226406abdc9284ffd70a682498768ce437638d5ec0cf42fd93ee')
+sha512sums=('6243b0ac25f2a4cdac1f81bff2684ebf3f2d1f19ac98038945fc249bfdf481658a7492512bd1ff1f8a8140a555c3a24baab8c2aad34dde78f599156415cca2c5')
 
 build() {
 	cd "gtk-theme-${pkgcommit}"*

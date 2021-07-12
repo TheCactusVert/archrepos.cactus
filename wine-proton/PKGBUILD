@@ -90,6 +90,9 @@ optdepends=(
     'libxcomposite: Window management.'		
     'libxinerama: Window management.'	
 
+    'openvr: VR'
+    'openxr: VR'
+
 #    'giflib'                          
 #    'alsa-plugins'                   
 #    'ncurses'               	

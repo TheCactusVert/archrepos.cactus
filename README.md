@@ -30,6 +30,7 @@ Use `wine64` to run your game (or app).
 
 ## Installing xow
 
+Use the following commands:
 ```bash
 doas pacman -S xow
 doas systemctl enable xow
