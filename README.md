@@ -12,8 +12,8 @@ doas pacman-key --lsign-key '72CA153D0D0A6824'
 Add these lines to `/etc/pacman.conf`:
 
 ```bash
-[gavrois]
-Server = https://arch.gavrois.fr/$arch
+[cactus]
+Server = https://arch.gavrois.fr/$repo/os/$arch
 ```
 
 ## Installing wine-proton
