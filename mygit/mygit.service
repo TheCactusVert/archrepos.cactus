@@ -1,0 +1,9 @@
+[Unit]
+Description=Simple self-hosted git server, written in Rust
+After=network.service
+
+[Service]
+ExecStart=/usr/bin/mygit --config /etc/mygit.toml
+
+[Install]
+WantedBy=default.target
