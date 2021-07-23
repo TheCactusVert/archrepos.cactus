@@ -1,7 +1,7 @@
 pkgname=vkd3d-proton
 pkgver=1.1
 pkgrel=1
-pkgdesc="D3D12 to Vulkan translation library (Valve version)"
+pkgdesc="Direct3D 12 to Vulkan translation library by Valve"
 arch=('x86_64')
 url='https://github.com/ValveSoftware/vkd3d'
 license=('LGPL')

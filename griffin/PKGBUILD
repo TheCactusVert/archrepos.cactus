@@ -1,25 +1,25 @@
-# Maintainer: Amy Wilson <awils_1 at xsmail dot com>
-pkgname="wyvern"
-pkgver="1.7.0"
+pkgname="griffin"
+pkgver="2.0.0"
 pkgrel="1"
 pkgdesc="Command-line tool written in rust that is meant to make downloading GOG games and associated activities easier and faster on linux."
 arch=("x86_64")
-url="https://github.com/TheCactusVert/wyvern/"
+url="https://github.com/TheCactusVert/griffin/"
 license=("GPL")
 makedepends=("rust")
 depends=("curl")
-optdepends=('rsync: Sync suppport'
-	    'innoextract: Windows (GOG) game installation')
+provides=('wyvern')
+replaces=('wyvern')
+optdepends=('rsync: Sync suppport')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/TheCactusVert/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
 md5sums=('SKIP')
 
 build() {
-  cd ${pkgname}-${pkgver}
-  cargo build --release
+	cd ${pkgname}-${pkgver}
+	cargo build --release
 }
 
 package() {
-  cd ${pkgname}-${pkgver}
-  install -Dm 755 "target/release/${pkgname}" -t "$pkgdir/usr/bin"
+	cd ${pkgname}-${pkgver}
+	install -Dm 755 "target/release/${pkgname}" -t "$pkgdir/usr/bin"
 }
 
