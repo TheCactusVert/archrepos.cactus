@@ -8,17 +8,17 @@ license=("AGPL-3.0")
 makedepends=("git" "cargo")
 provides=(${pkgname})
 conflicts=(${pkgname})
-source=("https://github.com/alexwennerberg/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
+source=("git+https://git.alexwennerberg.com/mygit"
 	"${pkgname}.service")
 sha256sums=(
 	"SKIP"
 	"SKIP")
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
+	cd "${srcdir}/${pkgname}"
 
-	sed -i 's#clone_base = "https://git.alexwennerberg.com"#clone_base = "https://git.gavrois.fr"#g'        "${srcdir}/${pkgname}-${pkgver}/mygit.toml"
-	sed -i 's#projectroot = "repos"#projectroot = "/srv/git/gavrois"#g'                                     "${srcdir}/${pkgname}-${pkgver}/mygit.toml"
+	sed -i 's#clone_base = "https://git.alexwennerberg.com"#clone_base = "https://git.gavrois.fr"#g'        "${srcdir}/${pkgname}/mygit.toml"
+	sed -i 's#projectroot = "repos"#projectroot = "/srv/git/gavrois"#g'                                     "${srcdir}/${pkgname}/mygit.toml"
 
 	cargo build --release --target-dir=target
 }
@@ -26,6 +26,6 @@ build() {
 package() {
 	install -Dm644 "${srcdir}/mygit.service"					"${pkgdir}/usr/lib/systemd/system/mygit.service"
 
-	install -Dm755 "${srcdir}/${pkgname}-${pkgver}/target/release/${pkgname}"	"${pkgdir}/usr/bin/${pkgname}"
-	install -Dm755 "${srcdir}/${pkgname}-${pkgver}/mygit.toml"			"${pkgdir}/etc/mygit.toml"
+	install -Dm755 "${srcdir}/${pkgname}/target/release/${pkgname}"	"${pkgdir}/usr/bin/${pkgname}"
+	install -Dm755 "${srcdir}/${pkgname}/mygit.toml"		"${pkgdir}/etc/mygit.toml"
 }
