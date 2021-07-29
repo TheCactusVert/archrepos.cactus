@@ -1,20 +1,21 @@
 pkgname=mygit
 pkgver=0.1.0
 pkgrel=1
-pkgdesc="Simple self-hosted git server, written in Rust"
+pkgdesc="Simple self-hosted git server, written in Rust."
 arch=('x86_64' 'armv7h')
 url="https://git.alexwennerberg.com/mygit"
 license=("AGPL-3.0")
 makedepends=("git" "cargo")
 provides=(${pkgname})
 conflicts=(${pkgname})
-source=("git+https://git.alexwennerberg.com/mygit"
+source=(
 	"${pkgname}.service")
 sha256sums=(
-	"SKIP"
+	
 	"SKIP")
 
 build() {
+	git clone /srv/git/gavrois/mygit.git
 	cd "${srcdir}/${pkgname}"
 
 	sed -i 's#clone_base = "https://git.alexwennerberg.com"#clone_base = "https://git.gavrois.fr"#g'        "${srcdir}/${pkgname}/mygit.toml"
