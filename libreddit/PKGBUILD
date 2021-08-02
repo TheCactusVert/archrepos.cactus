@@ -1,27 +1,27 @@
-pkgname=libreddit
-pkgver=0.14.12
-pkgrel=1
-pkgdesc="Alternative private front-end to Reddit"
+pkgname='libreddit'
+pkgver='0.14.12'
+pkgrel='1'
+pkgdesc='Alternative private front-end to Reddit'
 arch=('x86_64' 'armv7h')
-url="https://github.com/spikecodes/libreddit"
-license=("AGPL-3.0")
-makedepends=("git" "cargo")
-provides=(${pkgname})
-conflicts=(${pkgname})
+url='https://github.com/spikecodes/libreddit'
+license=('AGPL-3.0')
+makedepends=('git' 'cargo')
+provides=($pkgname)
+conflicts=($pkgname)
 source=("https://github.com/spikecodes/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz"
 	"libreddit.service")
 sha256sums=(
-	"SKIP"
-	"8295e7606f699066058d9fbe9df5f68f609443faf5e4749e7f7a6b1034d13895")
+	'SKIP'
+	'8295e7606f699066058d9fbe9df5f68f609443faf5e4749e7f7a6b1034d13895')
 
 build() {
-	cd "${srcdir}/${pkgname}-${pkgver}"
+	cd ${srcdir}/${pkgname}-${pkgver}
 	cargo build --release --all-features --target-dir=target
 }
 
 package() {
-	install -Dm644 "${srcdir}/libreddit.service"					"${pkgdir}/usr/lib/systemd/system/libreddit.service"
+	install -Dm644 $srcdir/libreddit.service -t $pkgdir/usr/lib/systemd/system/libreddit.service
 
-	install -Dm644 "${srcdir}/${pkgname}-${pkgver}/LICENSE"				"${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-	install -Dm755 "${srcdir}/${pkgname}-${pkgver}/target/release/${pkgname}"	"${pkgdir}/usr/bin/${pkgname}"
+	install -Dm644 $srcdir/$pkgname-$pkgver/LICENSE -t $pkgdir/usr/share/licenses/$pkgname/LICENSE
+	install -Dm755 $srcdir/$pkgname-$pkgver/target/release/${pkgname} -t $pkgdir/usr/bin/$pkgname
 }

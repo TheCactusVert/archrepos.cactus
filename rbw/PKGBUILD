@@ -1,15 +1,15 @@
-pkgname=rbw
-pkgver=1.2.0
-pkgrel=2
+pkgname='rbw'
+pkgver='1.2.0'
+pkgrel='2'
 makedepends=('rust' 'cargo')
 depends=('pinentry' 'openssl')
 conflicts=('rbw-git' 'rbw-bin')
 provides=('rbw')
 arch=('i686' 'x86_64')
-url="https://git.tozt.net/${pkgname}"
+url='https://git.tozt.net/rbw'
 source=(https://git.tozt.net/rbw/snapshot/${pkgname}-${pkgver}.tar.gz)
 sha256sums=('17fce8f474486550b83a2487ba7febd05d4f279cc7c53e70594d6f8ea223f5b7')
-pkgdesc="Unofficial bitwarden CLI."
+pkgdesc='Unofficial bitwarden CLI.'
 license=('MIT')
 
 build() {
