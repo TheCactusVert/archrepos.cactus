@@ -1,32 +1,25 @@
-pkgname=mygit
-pkgver=0.1.0
-pkgrel=1
-pkgdesc="Simple self-hosted git server, written in Rust."
+pkgname='mygit'
+pkgver='0.1.0'
+pkgrel='1'
+pkgdesc='Simple self-hosted git server, written in Rust.'
 arch=('x86_64' 'armv7h')
-url="https://git.alexwennerberg.com/mygit"
-license=("AGPL-3.0")
-makedepends=("git" "cargo")
-provides=(${pkgname})
-conflicts=(${pkgname})
-source=(
+url='https://git.alexwennerberg.com/mygit'
+license=('AGPL-3.0')
+makedepends=('git' 'cargo')
+provides=($pkgname)
+conflicts=($pkgname)
+source=("git+ssh://mercure.home:/srv/git/gavrois/${pkgname}.git"
 	"${pkgname}.service")
-sha256sums=(
-	
-	"SKIP")
+sha256sums=('SKIP' 'SKIP')
 
 build() {
-	git clone /srv/git/gavrois/mygit.git
-	cd "${srcdir}/${pkgname}"
-
-	sed -i 's#clone_base = "https://git.alexwennerberg.com"#clone_base = "https://git.gavrois.fr"#g'        "${srcdir}/${pkgname}/mygit.toml"
-	sed -i 's#projectroot = "repos"#projectroot = "/srv/git/gavrois"#g'                                     "${srcdir}/${pkgname}/mygit.toml"
-
+	cd $pkgname
 	cargo build --release --target-dir=target
 }
 
 package() {
-	install -Dm644 "${srcdir}/mygit.service"					"${pkgdir}/usr/lib/systemd/system/mygit.service"
+	install -Dm644 ${srcdir}/mygit.service				${pkgdir}/usr/lib/systemd/system/mygit.service
 
-	install -Dm755 "${srcdir}/${pkgname}/target/release/${pkgname}"	"${pkgdir}/usr/bin/${pkgname}"
-	install -Dm755 "${srcdir}/${pkgname}/mygit.toml"		"${pkgdir}/etc/mygit.toml"
+	install -Dm755 ${srcdir}/${pkgname}/target/release/${pkgname}	${pkgdir}/usr/bin/${pkgname}
+	install -Dm755 ${srcdir}/${pkgname}/mygit.toml			${pkgdir}/etc/mygit.toml
 }

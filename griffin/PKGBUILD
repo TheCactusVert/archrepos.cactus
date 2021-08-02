@@ -1,25 +1,25 @@
-pkgname="griffin"
-pkgver="2.0.0"
-pkgrel="1"
-pkgdesc="Command-line tool written in rust that is meant to make downloading GOG games and associated activities easier and faster on linux."
-arch=("x86_64" "armv7h")
-url="https://github.com/TheCactusVert/griffin/"
-license=("GPL")
-makedepends=("rust")
-depends=("curl")
+pkgname='griffin'
+pkgver='2.1.0'
+pkgrel='1'
+pkgdesc='Command-line tool written in rust that is meant to make downloading GOG games and associated activities easier and faster on linux.'
+arch=('x86_64' 'armv7h')
+url='https://github.com/TheCactusVert/griffin/'
+license=('GPL')
+makedepends=('rust')
+depends=('curl')
 provides=('wyvern')
 replaces=('wyvern')
 optdepends=('rsync: Sync suppport')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/TheCactusVert/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-md5sums=('SKIP')
+source=("git+ssh://mercure.home:/srv/git/gavrois/${pkgname}.git")
+sha256sums=('SKIP')
 
 build() {
-	cd ${pkgname}-${pkgver}
+	cd $pkgname
 	cargo build --release
 }
 
 package() {
-	cd ${pkgname}-${pkgver}
-	install -Dm 755 "target/release/${pkgname}" -t "$pkgdir/usr/bin"
+	cd $pkgname
+	install -Dm755 target/release/$pkgname -t $pkgdir/usr/bin
 }
 

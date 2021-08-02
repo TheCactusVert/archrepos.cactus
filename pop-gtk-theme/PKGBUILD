@@ -1,17 +1,16 @@
 pkgname=pop-gtk-theme
-pkgver="5.3.3"
-pkgrel=2
+pkgver="5.4.0"
+pkgrel=1
 pkgdesc="System76 Pop GTK+ Theme"
-pkgcommit=11bcd41
 arch=('any')
 url='https://github.com/pop-os/gtk-theme'
 license=('LGPL2.1' 'CCPL' 'GPL3')
 makedepends=('sassc' 'meson')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pop-os/gtk-theme/archive/${pkgcommit}.tar.gz")
-sha512sums=('6243b0ac25f2a4cdac1f81bff2684ebf3f2d1f19ac98038945fc249bfdf481658a7492512bd1ff1f8a8140a555c3a24baab8c2aad34dde78f599156415cca2c5')
+source=("git+https://github.com/pop-os/gtk-theme.git")
+sha512sums=('SKIP')
 
 build() {
-	cd "gtk-theme-${pkgcommit}"*
+	cd "gtk-theme"
 	# Removing GTK 2.0 because I don't need it.
 	sed -i "/subdir('gtk-2.0')/d" gtk/src/*/meson.build
 	meson --prefix='/usr' build
@@ -19,7 +18,7 @@ build() {
 }
 
 package() {
-	cd "gtk-theme-${pkgcommit}"*
+	cd "gtk-theme"
 	DESTDIR="${pkgdir}" ninja -C build install
 
 	# https://github.com/pop-os/gtk-theme/issues/436
