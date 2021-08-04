@@ -1,5 +1,5 @@
 pkgname='griffin'
-pkgver='2.1.0'
+pkgver='2.1.1'
 pkgrel='1'
 pkgdesc='Command-line tool written in rust that is meant to make downloading GOG games and associated activities easier and faster on linux.'
 arch=('x86_64' 'armv7h')
