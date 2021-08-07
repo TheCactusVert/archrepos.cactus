@@ -1,6 +1,6 @@
-pkgname=wine-proton
-pkgver=6.3
-pkgrel=5
+pkgname='wine-proton'
+pkgver='6.3'
+pkgrel='5'
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'

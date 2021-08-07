@@ -1,20 +1,20 @@
-pkgname=vkd3d-winelib
-pkgver=2.4
-pkgrel=1
-pkgdesc="A Vulkan-based compatibility layer for Direct3D 12 which allows running 3D applications on Linux using Wine (Windows DLL binary files)"
-url="https://github.com/HansKristian-Work/vkd3d-proton"
+pkgname='vkd3d-winelib'
+pkgver='2.4'
+pkgrel='1'
+pkgdesc='A Vulkan-based compatibility layer for Direct3D 12 which allows running 3D applications on Linux using Wine (Windows DLL binary files)'
+url='https://github.com/HansKristian-Work/vkd3d-proton'
 license=('LGPL')
 arch=('x86_64')
 depends=('wine')
-provides=("winevkd3d")
+provides=('winevkd3d')
 install="$pkgname.install"
 source=("https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v${pkgver}/vkd3d-proton-${pkgver}.tar.zst")
 sha256sums=('SKIP')
 
 package() {
-        install -Dm755 "vkd3d-proton-$pkgver"/x86/* -t "$pkgdir/usr/lib/winevkd3d/x86"
-        install -Dm755 "vkd3d-proton-$pkgver"/x64/* -t "$pkgdir/usr/lib/winevkd3d/x64"
-        install "vkd3d-proton-$pkgver"/setup_vkd3d_proton.sh -t "$pkgdir/usr/lib/winevkd3d/"
-        install -d "$pkgdir/usr/bin"
-        ln -s /usr/lib/winevkd3d/setup_vkd3d_proton.sh "$pkgdir/usr/bin/winevkd3d"
+        install -Dm755 vkd3d-proton-$pkgver/x86/* -t $pkgdir/usr/lib/winevkd3d/x86
+        install -Dm755 vkd3d-proton-$pkgver/x64/* -t $pkgdir/usr/lib/winevkd3d/x64
+        install vkd3d-proton-$pkgver/setup_vkd3d_proton.sh -t $pkgdir/usr/lib/winevkd3d/
+        install -d $pkgdir/usr/bin
+        ln -s /usr/lib/winevkd3d/setup_vkd3d_proton.sh $pkgdir/usr/bin/winevkd3d
 }

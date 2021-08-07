@@ -13,17 +13,17 @@ source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('SKIP')
 
 build() {
-  cd $_pkgname-$pkgver
-  cargo build --release --locked
+	cd $_pkgname-$pkgver
+	cargo build --release --locked
 }
 
 check() {
-  cd $_pkgname-$pkgver
-  cargo test --release --locked
+	cd $_pkgname-$pkgver
+	cargo test --release --locked
 }
 
 package() {
-  cd $_pkgname-$pkgver
-  install -Dm755 target/release/$_pkgname -t $pkgdir/usr/bin
-  install -Dm644 README.md -t $pkgdir/usr/share/doc/$pkgname
+	cd $_pkgname-$pkgver
+	install -Dm755 target/release/$_pkgname -t $pkgdir/usr/bin
+	install -Dm644 README.md -t $pkgdir/usr/share/doc/$pkgname
 }
