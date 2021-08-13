@@ -1,5 +1,5 @@
 pkgname='libreddit'
-pkgver='0.14.12'
+pkgver='0.14.14'
 pkgrel='1'
 pkgdesc='Alternative private front-end to Reddit'
 arch=('x86_64' 'armv7h')
@@ -20,8 +20,8 @@ build() {
 }
 
 package() {
-	install -Dm644 $srcdir/libreddit.service -t $pkgdir/usr/lib/systemd/system/
-
+	install -Dm644 $srcdir/$pkgname.service -t $pkgdir/usr/lib/systemd/system/
+	install -Dm644 $srcdir/$pkgname.sysusers.conf $pkgdir/usr/lib/sysusers.d/$pkgname.conf
 	install -Dm644 $srcdir/$pkgname-$pkgver/LICENSE -t $pkgdir/usr/share/licenses/$pkgname/
 	install -Dm755 $srcdir/$pkgname-$pkgver/target/release/$pkgname -t $pkgdir/usr/bin/
 }

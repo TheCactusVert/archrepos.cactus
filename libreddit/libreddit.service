@@ -4,6 +4,8 @@ After=network.service
 
 [Service]
 ExecStart=/usr/bin/libreddit
+User=libreddit
+Group=libreddit
 
 [Install]
 WantedBy=default.target
