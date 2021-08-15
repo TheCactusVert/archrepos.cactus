@@ -101,10 +101,10 @@ optdepends=(
 
 options=('staticlibs')
 install="$pkgname.install"
-source=("https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-${pkgver}-${pkgrel}.tar.gz"
+source=("git+https://github.com/TheCactusVert/wine.git"
         '30-win32-aliases.conf'
         'wine-binfmt.conf')
-sha256sums=('653b2681bc9a884187b9ba0daa365615632e8bde7b07e30f8ca198752ff49542'
+sha256sums=('SKIP' #'653b2681bc9a884187b9ba0daa365615632e8bde7b07e30f8ca198752ff49542'
             '9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
             '6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4')
 
@@ -113,7 +113,7 @@ conflicts=('wine')
 
 
 prepare() {
-	cd "${pkgname}-wine-${pkgver}-${pkgrel}/"
+	cd wine/
     
 	# workaround for FS#55128
 	# https://bugs.archlinux.org/task/55128
@@ -135,14 +135,14 @@ build() {
         mkdir "$pkgname"-64-build
         cd    "$pkgname"-64-build
         
-        ../"${pkgname}-wine-${pkgver}-${pkgrel}"/configure \
-                		--prefix='/usr' \
-                		--libdir='/usr/lib' \
-                        	--with-x \
-				--with-gstreamer \
-                		--enable-win64 \
-				--disable-tests
-        make -j8
+        ../wine/configure \
+		--prefix='/usr' \
+		--libdir='/usr/lib' \
+		--with-x \
+		--with-gstreamer \
+		--enable-win64 \
+		--disable-tests
+        make -j
 }
 
 package() {
@@ -164,7 +164,7 @@ package() {
 	install -D -m644 "${srcdir}/wine-binfmt.conf"   "${pkgdir}/usr/lib/binfmt.d/wine.conf"
 
 	# wine list.h
-	for file in ${srcdir}/${pkgname}-wine-${pkgver}-${pkgrel}/include/wine/*.h; do
+	for file in ${srcdir}/wine/include/wine/*.h; do
 	    cp -n $file "${pkgdir}/usr/include/wine/"
 	done
 }
