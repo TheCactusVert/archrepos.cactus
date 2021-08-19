@@ -1,5 +1,5 @@
 pkgname='pop-gtk-theme'
-pkgver='5.4.3'
+pkgver='5.4.4'
 pkgrel='1'
 pkgdesc='System76 Pop GTK+ Theme'
 arch=('any')
