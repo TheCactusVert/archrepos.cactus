@@ -1,6 +1,6 @@
 pkgname='wine-proton'
 pkgver='6.3'
-pkgrel='5'
+pkgrel='6'
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'
@@ -101,7 +101,7 @@ optdepends=(
 
 options=('staticlibs')
 install="$pkgname.install"
-source=("git+https://github.com/TheCactusVert/wine.git"
+source=("git+https://github.com/ValveSoftware/wine.git"
         '30-win32-aliases.conf'
         'wine-binfmt.conf')
 sha256sums=('SKIP' #'653b2681bc9a884187b9ba0daa365615632e8bde7b07e30f8ca198752ff49542'
@@ -123,6 +123,9 @@ prepare() {
 
 	# fix path of opencl headers
 	sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
+	
+	autoreconf -f
+        ./tools/make_requests
 
 	# delete old build dirs (from previous builds) and make new ones
 	rm -rf "$pkgname"-64-build
