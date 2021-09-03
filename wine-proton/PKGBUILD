@@ -1,6 +1,8 @@
-pkgname='wine-proton'
-pkgver='6.3'
-pkgrel='6'
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+pkgname=wine-proton
+pkgver=6.3
+pkgrel=6
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'
@@ -124,7 +126,7 @@ prepare() {
 
 build() {
 	# build wine 64-bit
-        msg2 'Building Wine-64...'
+        echo 'Building Wine-64...'
 
         mkdir $srcdir/$pkgname-64
         cd    $srcdir/$pkgname-64
@@ -138,7 +140,7 @@ build() {
 		--disable-tests
         make -j
 
-	msg2 'Building Wine-32...'
+	echo 'Building Wine-32...'
 
 	mkdir $srcdir/$pkgname-32
         cd    $srcdir/$pkgname-32
@@ -155,7 +157,7 @@ build() {
 
 package() {
 	# package wine 32-bit
-        msg2 'Packaging Wine-32...'
+        echo 'Packaging Wine-32...'
 
         cd    $srcdir/$pkgname-32
 
@@ -164,7 +166,7 @@ package() {
              dlldir=$pkgdir/usr/lib32/wine install
 
         # package wine 64-bit
-        msg2 'Packaging Wine-64...'
+        echo 'Packaging Wine-64...'
         
         cd    $srcdir/$pkgname-64
 
@@ -173,15 +175,15 @@ package() {
              dlldir=$pkgdir/usr/lib/wine install
     
 	# font aliasing settings for Win32 applications
-	install -d "$pkgdir"/etc/fonts/conf.{avail,d}
-	install -m644 "${srcdir}/30-win32-aliases.conf" "${pkgdir}/etc/fonts/conf.avail"
-	ln -s ../conf.avail/30-win32-aliases.conf       "${pkgdir}/etc/fonts/conf.d/30-win32-aliases.conf"
+	install -d ${pkgdir}/etc/fonts/conf.{avail,d}
+	install -m644 ${srcdir}/30-win32-aliases.conf ${pkgdir}/etc/fonts/conf.avail
+	ln -s ../conf.avail/30-win32-aliases.conf     ${pkgdir}/etc/fonts/conf.d/30-win32-aliases.conf
     
 	# wine binfmt
-	install -D -m644 "${srcdir}/wine-binfmt.conf"   "${pkgdir}/usr/lib/binfmt.d/wine.conf"
+	install -D -m644 ${srcdir}/wine-binfmt.conf   ${pkgdir}/usr/lib/binfmt.d/wine.conf
 
 	# wine list.h
 	for file in ${srcdir}/$pkgname-wine-$pkgver-$pkgrel/include/wine/*.h; do
-	    cp -n $file "${pkgdir}/usr/include/wine/"
+	    cp -n $file ${pkgdir}/usr/include/wine/
 	done
 }

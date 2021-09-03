@@ -1,6 +1,8 @@
-pkgname='xow'
-pkgver='0.5'
-pkgrel='2'
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+pkgname=xow
+pkgver=0.5
+pkgrel=2
 pkgdesc='Linux driver for the Xbox One wireless dongle'
 arch=('x86_64')
 url='https://github.com/medusalix/xow'

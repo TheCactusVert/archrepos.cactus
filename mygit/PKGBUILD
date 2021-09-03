@@ -1,6 +1,8 @@
-pkgname='mygit'
-pkgver='0.1.0'
-pkgrel='3'
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+pkgname=mygit
+pkgver=0.1.0
+pkgrel=3
 pkgdesc='Simple self-hosted git server, written in Rust.'
 arch=('x86_64' 'armv7h')
 url='https://git.alexwennerberg.com/mygit'
