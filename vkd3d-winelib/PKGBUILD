@@ -1,6 +1,8 @@
-pkgname='vkd3d-winelib'
-pkgver='2.4'
-pkgrel='1'
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+pkgname=vkd3d-winelib
+pkgver=2.4
+pkgrel=1
 pkgdesc='A Vulkan-based compatibility layer for Direct3D 12 which allows running 3D applications on Linux using Wine (Windows DLL binary files)'
 url='https://github.com/HansKristian-Work/vkd3d-proton'
 license=('LGPL')

@@ -1,7 +1,9 @@
-pkgname='dotter-rs'
-_pkgname='dotter'
-pkgver='0.12.6'
-pkgrel='1'
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+pkgname=dotter-rs
+_pkgname=dotter
+pkgver=0.12.6
+pkgrel=1
 pkgdesc='A dotfile manager and templater written in Rust'
 arch=('x86_64' 'armv7h')
 url='https://github.com/SuperCuber/dotter'
