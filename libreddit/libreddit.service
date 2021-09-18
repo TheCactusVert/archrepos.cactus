@@ -3,7 +3,8 @@ Description=Alternative private front-end to Reddit
 After=network.service
 
 [Service]
-ExecStart=/usr/bin/libreddit
+EnvironmentFile=/etc/libreddit.env
+ExecStart=/usr/bin/libreddit -a $ADDRESS -p $PORT
 User=libreddit
 Group=libreddit
 
