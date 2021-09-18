@@ -14,9 +14,9 @@ source=("https://github.com/doitsujin/dxvk/releases/download/v${pkgver}/dxvk-${p
 sha256sums=('SKIP')
 
 package() {
-        install -Dm755 dxvk-$pkgver/x32/*  -t $pkgdir/usr/lib/winedxvk/x32
-        install -Dm755 dxvk-$pkgver/x64/*  -t $pkgdir/usr/lib/winedxvk/x64
+	install -Dm755 dxvk-$pkgver/x32/*  -t $pkgdir/usr/lib/winedxvk/x32
+	install -Dm755 dxvk-$pkgver/x64/*  -t $pkgdir/usr/lib/winedxvk/x64
 	install dxvk-$pkgver/setup_dxvk.sh -t $pkgdir/usr/lib/winedxvk/
-        install -d $pkgdir/usr/bin
-        ln -s /usr/lib/winedxvk/setup_dxvk.sh $pkgdir/usr/bin/winedxvk
+	install -d $pkgdir/usr/bin
+	ln -s /usr/lib/winedxvk/setup_dxvk.sh $pkgdir/usr/bin/winedxvk
 }

@@ -14,9 +14,9 @@ source=("https://github.com/HansKristian-Work/vkd3d-proton/releases/download/v${
 sha256sums=('SKIP')
 
 package() {
-        install -Dm755 vkd3d-proton-$pkgver/x86/* -t $pkgdir/usr/lib/winevkd3d/x86
-        install -Dm755 vkd3d-proton-$pkgver/x64/* -t $pkgdir/usr/lib/winevkd3d/x64
-        install vkd3d-proton-$pkgver/setup_vkd3d_proton.sh -t $pkgdir/usr/lib/winevkd3d/
-        install -d $pkgdir/usr/bin
-        ln -s /usr/lib/winevkd3d/setup_vkd3d_proton.sh $pkgdir/usr/bin/winevkd3d
+	install -Dm755 vkd3d-proton-$pkgver/x86/* -t $pkgdir/usr/lib/winevkd3d/x86
+	install -Dm755 vkd3d-proton-$pkgver/x64/* -t $pkgdir/usr/lib/winevkd3d/x64
+	install vkd3d-proton-$pkgver/setup_vkd3d_proton.sh -t $pkgdir/usr/lib/winevkd3d/
+	install -d $pkgdir/usr/bin
+	ln -s /usr/lib/winevkd3d/setup_vkd3d_proton.sh $pkgdir/usr/bin/winevkd3d
 }

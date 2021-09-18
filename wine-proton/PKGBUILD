@@ -8,104 +8,105 @@ arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'
 license=('LGPL')
 depends=(
-    'sdl2' 'lib32-sdl2' 
-    'fontconfig' 'lib32-fontconfig'
-    'lcms2' 'lib32-lcms2'
-    'libxml2' 'lib32-libxml2'
-    'libxslt' 'lib32-libxslt'
-    'libxcursor' 'lib32-libxcursor'
-    'libxrandr' 'lib32-libxrandr'
-    'libxdamage' 'lib32-libxdamage'
-    'libxi' 'lib32-libxi' 
-    'freetype2' 'lib32-freetype2'
-    'libsm' 'lib32-libsm'
-    'gcc-libs' 'lib32-gcc-libs'
-    'libpcap' 'lib32-libpcap'
-    'libgphoto2'
-    'faudio' 'lib32-faudio'
-    'vkd3d' 'lib32-vkd3d'
+	'sdl2' 'lib32-sdl2'
+	'fontconfig' 'lib32-fontconfig'
+	'lcms2' 'lib32-lcms2'
+	'libxml2' 'lib32-libxml2'
+	'libxslt' 'lib32-libxslt'
+	'libxcursor' 'lib32-libxcursor'
+	'libxrandr' 'lib32-libxrandr'
+	'libxdamage' 'lib32-libxdamage'
+	'libxi' 'lib32-libxi'
+	'freetype2' 'lib32-freetype2'
+	'libsm' 'lib32-libsm'
+	'gcc-libs' 'lib32-gcc-libs'
+	'libpcap' 'lib32-libpcap'
+	'libgphoto2'
+	'faudio' 'lib32-faudio'
+	'vkd3d' 'lib32-vkd3d'
 )
 makedepends=(
-    'autoconf'
-    'bison' #OK
-    'flex' #OK
-    'pkgconf'
-    'gcc>=4.5.0-2'
-    'libpng' 'lib32-libpng'
-    'libjpeg-turbo' 'lib32-libjpeg-turbo'
-    'libtiff' 'lib32-libtiff'
-    'gnutls' 'lib32-gnutls'
-    'libxinerama' 'lib32-libxinerama'
-    'libxcomposite' 'lib32-libxcomposite'
-    'libxmu' 'lib32-libxmu'
-    'libxxf86vm' 'lib32-libxxf86vm'
-    'libldap' 'lib32-libldap'
-    'libcups' 'lib32-libcups'
-    'libusb' 'lib32-libusb'
-    'krb5' 'lib32-krb5'
-    'mpg123' 'lib32-mpg123'
-    'openal' 'lib32-openal'
-    'v4l-utils' 'lib32-v4l-utils'
-    'libpulse' 'lib32-libpulse'
-    'alsa-lib' 'lib32-alsa-lib'
-    'libxcomposite' 'lib32-libxcomposite'
-    'libunwind' 'lib32-libunwind'
-    'mesa' 'lib32-mesa'
-    'opencl-headers'
-    'ocl-icd' 'lib32-ocl-icd'
-    'libxslt' 'lib32-libxslt'
-    'gstreamer' 'lib32-gstreamer'
-    'gst-plugins-base-libs' 'lib32-gst-plugins-base-libs'
-    'vulkan-headers'
-    'vulkan-icd-loader' 'lib32-vulkan-icd-loader'
-    'smbclient'
-    'gsm'
+	'autoconf'
+	'bison' #OK
+	'flex' #OK
+	'pkgconf'
+	'gcc>=4.5.0-2'
+	'libpng' 'lib32-libpng'
+	'libjpeg-turbo' 'lib32-libjpeg-turbo'
+	'libtiff' 'lib32-libtiff'
+	'gnutls' 'lib32-gnutls'
+	'libxinerama' 'lib32-libxinerama'
+	'libxcomposite' 'lib32-libxcomposite'
+	'libxmu' 'lib32-libxmu'
+	'libxxf86vm' 'lib32-libxxf86vm'
+	'libldap' 'lib32-libldap'
+	'libcups' 'lib32-libcups'
+	'libusb' 'lib32-libusb'
+	'krb5' 'lib32-krb5'
+	'mpg123' 'lib32-mpg123'
+	'openal' 'lib32-openal'
+	'v4l-utils' 'lib32-v4l-utils'
+	'libpulse' 'lib32-libpulse'
+	'alsa-lib' 'lib32-alsa-lib'
+	'libxcomposite' 'lib32-libxcomposite'
+	'libunwind' 'lib32-libunwind'
+	'mesa' 'lib32-mesa'
+	'opencl-headers'
+	'ocl-icd' 'lib32-ocl-icd'
+	'libxslt' 'lib32-libxslt'
+	'gstreamer' 'lib32-gstreamer'
+	'gst-plugins-base-libs' 'lib32-gst-plugins-base-libs'
+	'vulkan-headers'
+	'vulkan-icd-loader' 'lib32-vulkan-icd-loader'
+	'smbclient'
+	'gsm'
 
-    ${depends[@]}
+	${depends[@]}
 )
 optdepends=(
-    'libpng: Image format decoding.' 'lib32-libpng: Image format decoding.'
-    'libjpeg-turbo: Image format decoding.' 'lib32-libjpeg-turbo: Image format decoding.'
-    'libtiff: Image format decoding.' 'lib32-libtiff: Image format decoding.'
-    'libldap: LDAP remote directory protocol.' 'lib32-libldap: LDAP remote directory protocol.'
-    'libusb: USB device support.' 'lib32-libusb: USB device support.'
-    'gnutls: Cryptography.' 'lib32-gnutls: Cryptography.'
-    'mpg123: mp3 decoding.' 'lib32-mpg123: mp3 decoding.'
-    'openal: Audio engine.' 'lib32-openal: Audio engine.'
-    'v4l-utils: Video capture.' 'lib32-v4l-utils: Video capture.'
-    'libpulse: Sound backend.' 'lib32-libpulse: Sound backend.'
-    'alsa-lib: Sound backend.' 'lib32-alsa-lib: Sound backend.'
-    'ocl-icd: Parallel computing / GPGPU.' 'lib32-ocl-icd: Parallel computing / GPGPU.'
-    'libxslt: XML parsing.' 'lib32-libxslt: XML parsing.'
-    'gstreamer: Multimedia playback.' 'lib32-gstreamer: Multimedia playback.'
-    'gst-plugins-base-libs: Multimedia playback.' 'lib32-gst-plugins-base-libs: Multimedia playback.'
-    'vulkan-icd-loader: Hardware-accelerated/3D graphics.' 'lib32-vulkan-icd-loader: Hardware-accelerated/3D graphics.'
-    'libcups: Printing.' 'lib32-libcups: Printing.'
-    'smbclient: Networking.'
+	'libpng: Image format decoding.' 'lib32-libpng: Image format decoding.'
+	'libjpeg-turbo: Image format decoding.' 'lib32-libjpeg-turbo: Image format decoding.'
+	'libtiff: Image format decoding.' 'lib32-libtiff: Image format decoding.'
+	'libldap: LDAP remote directory protocol.' 'lib32-libldap: LDAP remote directory protocol.'
+	'libusb: USB device support.' 'lib32-libusb: USB device support.'
+	'gnutls: Cryptography.' 'lib32-gnutls: Cryptography.'
+	'mpg123: mp3 decoding.' 'lib32-mpg123: mp3 decoding.'
+	'openal: Audio engine.' 'lib32-openal: Audio engine.'
+	'v4l-utils: Video capture.' 'lib32-v4l-utils: Video capture.'
+	'libpulse: Sound backend.' 'lib32-libpulse: Sound backend.'
+	'alsa-lib: Sound backend.' 'lib32-alsa-lib: Sound backend.'
+	'ocl-icd: Parallel computing / GPGPU.' 'lib32-ocl-icd: Parallel computing / GPGPU.'
+	'libxslt: XML parsing.' 'lib32-libxslt: XML parsing.'
+	'gstreamer: Multimedia playback.' 'lib32-gstreamer: Multimedia playback.'
+	'gst-plugins-base-libs: Multimedia playback.' 'lib32-gst-plugins-base-libs: Multimedia playback.'
+	'vulkan-icd-loader: Hardware-accelerated/3D graphics.' 'lib32-vulkan-icd-loader: Hardware-accelerated/3D graphics.'
+	'libcups: Printing.' 'lib32-libcups: Printing.'
+	'smbclient: Networking.'
 
-    'libxcomposite: Window management.' 'lib32-libxcomposite: Window management.'
-    'libxinerama: Window management.' 'lib32-libxinerama: Window management.'
+	'libxcomposite: Window management.' 'lib32-libxcomposite: Window management.'
+	'libxinerama: Window management.' 'lib32-libxinerama: Window management.'
 
-    'openvr: VR'
-    'openxr: VR'
+	'openvr: VR'
+	'openxr: VR'
 )
 
 options=('staticlibs')
 install="$pkgname.install"
-source=("https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-6.3-6.tar.gz"
-        '30-win32-aliases.conf'
-        'wine-binfmt.conf')
-sha256sums=('SKIP'
-            '9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
-            '6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4')
+source=(
+	"https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-6.3-6.tar.gz"
+	'30-win32-aliases.conf'
+	'wine-binfmt.conf')
+sha256sums=(
+	'SKIP'
+	'9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
+	'6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4')
 
 provides=("wine=${pkgver}")
 conflicts=('wine')
 
-
 prepare() {
 	cd $pkgname-wine-$pkgver-$pkgrel/
-    
+
 	# workaround for FS#55128
 	# https://bugs.archlinux.org/task/55128
 	# https://bugs.winehq.org/show_bug.cgi?id=43530
@@ -114,7 +115,7 @@ prepare() {
 
 	# fix path of opencl headers
 	sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
-	
+
 	# https://github.com/ValveSoftware/wine/issues/120#issuecomment-901958052
 	autoreconf -f
 	./tools/make_requests
@@ -126,51 +127,51 @@ prepare() {
 
 build() {
 	# build wine 64-bit
-        echo 'Building Wine-64...'
-        mkdir $srcdir/$pkgname-64
-        cd    $srcdir/$pkgname-64
-        ../$pkgname-wine-$pkgver-$pkgrel/configure \
+	echo 'Building Wine-64...'
+	mkdir $srcdir/$pkgname-64
+	cd    $srcdir/$pkgname-64
+	../$pkgname-wine-$pkgver-$pkgrel/configure \
 		--prefix=/usr \
 		--libdir=/usr/lib \
 		--with-x \
 		--with-gstreamer \
 		--enable-win64 \
 		--disable-tests
-        make -j
+	make -j
 
 	echo 'Building Wine-32...'
 	mkdir $srcdir/$pkgname-32
-        cd    $srcdir/$pkgname-32
+	cd    $srcdir/$pkgname-32
 	../$pkgname-wine-$pkgver-$pkgrel/configure \
-                --prefix=/usr \
+		--prefix=/usr \
 		--libdir=/usr/lib32 \
-                --with-x \
-                --with-gstreamer \
-                --disable-tests \
+		--with-x \
+		--with-gstreamer \
+		--disable-tests \
 		--with-wine64=${srcdir}/${pkgname}-64
-        make -j
+	make -j
 }
 
 package() {
 	# package wine 32-bit
-        echo 'Packaging Wine-32...'
-        cd    $srcdir/$pkgname-32
-        make prefix=$pkgdir/usr \
-             libdir=$pkgdir/usr/lib32 \
-             dlldir=$pkgdir/usr/lib32/wine install
+	echo 'Packaging Wine-32...'
+	cd    $srcdir/$pkgname-32
+	make prefix=$pkgdir/usr \
+	libdir=$pkgdir/usr/lib32 \
+	dlldir=$pkgdir/usr/lib32/wine install
 
-        # package wine 64-bit
-        echo 'Packaging Wine-64...'
-        cd    $srcdir/$pkgname-64
-        make prefix=$pkgdir/usr \
-             libdir=$pkgdir/usr/lib \
-             dlldir=$pkgdir/usr/lib/wine install
-    
+	# package wine 64-bit
+	echo 'Packaging Wine-64...'
+	cd    $srcdir/$pkgname-64
+	make prefix=$pkgdir/usr \
+	libdir=$pkgdir/usr/lib \
+	dlldir=$pkgdir/usr/lib/wine install
+
 	# font aliasing settings for Win32 applications
 	install -d ${pkgdir}/etc/fonts/conf.{avail,d}
 	install -m644 ${srcdir}/30-win32-aliases.conf ${pkgdir}/etc/fonts/conf.avail
 	ln -s ../conf.avail/30-win32-aliases.conf     ${pkgdir}/etc/fonts/conf.d/30-win32-aliases.conf
-    
+
 	# wine binfmt
 	install -Dm644 ${srcdir}/wine-binfmt.conf   ${pkgdir}/usr/lib/binfmt.d/wine.conf
 
