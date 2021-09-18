@@ -127,10 +127,8 @@ prepare() {
 build() {
 	# build wine 64-bit
         echo 'Building Wine-64...'
-
         mkdir $srcdir/$pkgname-64
         cd    $srcdir/$pkgname-64
-        
         ../$pkgname-wine-$pkgver-$pkgrel/configure \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -141,10 +139,8 @@ build() {
         make -j
 
 	echo 'Building Wine-32...'
-
 	mkdir $srcdir/$pkgname-32
         cd    $srcdir/$pkgname-32
-
 	../$pkgname-wine-$pkgver-$pkgrel/configure \
                 --prefix=/usr \
 		--libdir=/usr/lib32 \
@@ -158,18 +154,14 @@ build() {
 package() {
 	# package wine 32-bit
         echo 'Packaging Wine-32...'
-
         cd    $srcdir/$pkgname-32
-
         make prefix=$pkgdir/usr \
              libdir=$pkgdir/usr/lib32 \
              dlldir=$pkgdir/usr/lib32/wine install
 
         # package wine 64-bit
         echo 'Packaging Wine-64...'
-        
         cd    $srcdir/$pkgname-64
-
         make prefix=$pkgdir/usr \
              libdir=$pkgdir/usr/lib \
              dlldir=$pkgdir/usr/lib/wine install
@@ -180,10 +172,9 @@ package() {
 	ln -s ../conf.avail/30-win32-aliases.conf     ${pkgdir}/etc/fonts/conf.d/30-win32-aliases.conf
     
 	# wine binfmt
-	install -D -m644 ${srcdir}/wine-binfmt.conf   ${pkgdir}/usr/lib/binfmt.d/wine.conf
+	install -Dm644 ${srcdir}/wine-binfmt.conf   ${pkgdir}/usr/lib/binfmt.d/wine.conf
 
 	# wine list.h
-	for file in ${srcdir}/$pkgname-wine-$pkgver-$pkgrel/include/wine/*.h; do
-	    cp -n $file ${pkgdir}/usr/include/wine/
-	done
+	install -d ${pkgdir}/usr/include
+	cp -r ${srcdir}/$pkgname-wine-$pkgver-$pkgrel/include/* ${pkgdir}/usr/include/
 }
