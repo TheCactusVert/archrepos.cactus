@@ -1,7 +1,7 @@
 # Maintainer: Kevin Gavrois <kevin@gavrois.fr>
 
 pkgname=dxvk-winelib
-pkgver=1.9.1
+pkgver=1.9.2
 pkgrel=1
 pkgdesc='A Vulkan-based compatibility layer for Direct3D 9/10/11 which allows running 3D applications on Linux using Wine (Windows DLL binary files)'
 url='https://github.com/doitsujin/dxvk'
