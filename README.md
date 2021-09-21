@@ -25,9 +25,6 @@ winedxvk install --symlink # With or without WINEPREFIX
 winevkd3d install --symlink # With or without WINEPREFIX
 ```
 
-`wine-proton` is compiled only in 64 bits.
-Use `wine64` to run your game (or app).
-
 ## Installing xow
 
 Use the following commands:
