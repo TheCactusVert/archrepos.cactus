@@ -1,7 +1,7 @@
 # Maintainer: Kevin Gavrois <kevin@gavrois.fr>
 
 pkgname=pop-gtk-theme
-pkgver=5.4.4
+pkgver=5.4.5
 pkgrel=1
 pkgdesc='System76 Pop GTK+ Theme'
 arch=('any')

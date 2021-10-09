@@ -2,7 +2,7 @@
 
 pkgname=wine-proton
 pkgver=6.3
-pkgrel=6
+pkgrel=7
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'
@@ -93,7 +93,7 @@ optdepends=(
 options=('staticlibs')
 install="$pkgname.install"
 source=(
-	"https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-6.3-6.tar.gz"
+	"https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-${pkgver}-${pkgrel}.tar.gz"
 	'30-win32-aliases.conf'
 	'wine-binfmt.conf')
 sha256sums=(
@@ -174,8 +174,4 @@ package() {
 
 	# wine binfmt
 	install -Dm644 ${srcdir}/wine-binfmt.conf   ${pkgdir}/usr/lib/binfmt.d/wine.conf
-
-	# wine list.h
-	install -d ${pkgdir}/usr/include
-	cp -r ${srcdir}/$pkgname-wine-$pkgver-$pkgrel/include/* ${pkgdir}/usr/include/
 }
