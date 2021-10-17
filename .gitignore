@@ -2,6 +2,7 @@
 *.tar.zst
 *.tar.xz
 *.pkg.*
+*.part
 
 # No subfolders
 */*/
