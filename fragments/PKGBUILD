@@ -1,0 +1,45 @@
+pkgname=fragments
+pkgver=1.5.r53.g4ad9b0d
+pkgrel=1
+pkgdesc="BitTorrent client for GNOME"
+arch=(i686 x86_64 armv6h armv7h)
+url="https://gitlab.gnome.org/World/Fragments"
+license=(GPL3)
+depends=(curl
+         libb64
+         libevent
+         libhandy
+         libnatpmp
+         miniupnpc)
+makedepends=(git
+             gobject-introspection
+             libdazzle
+             libhandy
+             meson
+             vala
+             dht
+             libutp
+             libtransmission)
+provides=(fragments)
+conflicts=(fragments)
+source=("git+https://gitlab.gnome.org/World/Fragments.git")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd Fragments
+	git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+	sed -i "s/meson.get_compiler('c').find_library('libcrypto'),/meson.get_compiler('c').find_library('libcrypto'),meson.get_compiler('c').find_library('libssl'),/g" meson.build
+}
+
+build() {
+	arch-meson Fragments build
+	meson compile -C build
+}
+
+check() {
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install -C build
+}
