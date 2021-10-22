@@ -5,6 +5,7 @@ pkgdesc="Fast, easy, and free BitTorrent client (library)"
 arch=(i686 x86_64 arm armv6h armv7h aarch64)
 url="http://www.transmissionbt.com/"
 license=(MIT)
+depends=(openssl)
 makedepends=(cmake libutp)
 source=("git+https://github.com/transmission/transmission#tag=$pkgver")
 sha256sums=('SKIP')
