@@ -1,7 +1,7 @@
 # Maintainer: Kevin Gavrois <kevin@gavrois.fr>
 
 pkgname=griffin
-pkgver=2.1.1
+pkgver=2.2.0
 pkgrel=1
 pkgdesc='Command-line tool written in rust that is meant to make downloading GOG games and associated activities easier and faster on linux.'
 arch=('x86_64' 'armv7h')
@@ -9,19 +9,24 @@ url='https://github.com/TheCactusVert/griffin/'
 license=('GPL')
 makedepends=('rust')
 depends=('curl')
-provides=('wyvern')
-replaces=('wyvern')
-optdepends=('rsync: Sync suppport')
-source=("git+ssh://mercure.home:/srv/git/gavrois/${pkgname}.git")
-sha256sums=('SKIP')
+source=(
+	"https://github.com/TheCactusVert/$pkgname/archive/refs/tags/$pkgver.tar.gz"
+	"$pkgname.sysusers.conf"
+)
+sha256sums=(
+	"SKIP"
+	"5f85c5ec82f8a66201235ca6c2b9107ebc47a20ea01adbe08207bd233e3f8642"
+)
 
 build() {
-	cd $pkgname
+	cd $pkgname-$pkgver
 	cargo build --release
 }
 
 package() {
-	cd $pkgname
+	cd $pkgname-$pkgver
 	install -Dm755 target/release/$pkgname -t $pkgdir/usr/bin
+	install -Dm644 $srcdir/$pkgname.sysusers.conf $pkgdir/usr/lib/sysusers.d/$pkgname.conf
+	install -d ${pkgdir}/etc/griffin.d/
 }
 
