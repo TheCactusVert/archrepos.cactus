@@ -1,4 +1,4 @@
-pkgname=libmpv
+pkgname=libmpv-cactus
 pkgver=0.34.0
 pkgrel=4
 pkgdesc='A free, open source, and cross-platform media player'
@@ -13,9 +13,8 @@ depends=('alsa-lib' 'libasound.so' 'ffmpeg' 'libavcodec.so' 'libavdevice.so'
          'libjpeg' 'libjpeg.so' 'libplacebo' 'libplacebo.so' 'libpulse' 'libpulse.so'
          'libva' 'libva.so' 'libva-drm.so' 'libva-wayland.so' 'libva-x11.so' 'libvdpau' 'libx11'
          'libxext' 'libxinerama' 'libxkbcommon' 'libxkbcommon.so' 'libxrandr' 'libxss'
-         'libxv' 'lua52' 'mesa' 'rubberband' 'librubberband.so' 'shaderc'
-         'libshaderc_shared.so' 'uchardet' 'vulkan-icd-loader' 'wayland' 'xdg-utils'
-         'zlib')
+         'libxv' 'lua52' 'mesa' 'shaderc' 'libshaderc_shared.so'
+         'uchardet' 'vulkan-icd-loader' 'wayland' 'xdg-utils' 'zlib')
 makedepends=('git' 'python-docutils' 'ladspa' 'wayland-protocols'
              'ffnvcodec-headers' 'vulkan-headers')
 optdepends=('yt-dlp: for video-sharing websites playback'
@@ -33,6 +32,7 @@ build() {
 		--prefix=/usr \
 		--confdir=/etc/mpv \
 		--disable-cplayer \
+		--disable-rubberband \
 		--enable-cdda \
 		--enable-dvb \
 		--enable-dvdnav \
