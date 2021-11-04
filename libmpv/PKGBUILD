@@ -1,0 +1,54 @@
+pkgname=libmpv
+pkgver=0.34.0
+pkgrel=3
+pkgdesc='A free, open source, and cross-platform media player'
+arch=('x86_64')
+license=('GPL3')
+url='https://mpv.io/'
+depends=('alsa-lib' 'libasound.so' 'ffmpeg' 'libavcodec.so' 'libavdevice.so'
+         'libavfilter.so' 'libavformat.so' 'libavutil.so' 'libswresample.so' 'libswscale.so'
+         'glibc' 'jack' 'libjack.so' 'lcms2' 'liblcms2.so' 'libarchive'
+         'libarchive.so' 'libass' 'libass.so' 'libbluray' 'libbluray.so' 'libcdio'
+         'libcdio-paranoia' 'libdrm' 'libdvdnav' 'libdvdread' 'libegl' 'libgl' 'libglvnd'
+         'libjpeg' 'libjpeg.so' 'libplacebo' 'libplacebo.so' 'libpulse' 'libpulse.so'
+         'libva' 'libva.so' 'libva-drm.so' 'libva-wayland.so' 'libva-x11.so' 'libvdpau' 'libx11'
+         'libxext' 'libxinerama' 'libxkbcommon' 'libxkbcommon.so' 'libxrandr' 'libxss'
+         'libxv' 'lua52' 'mesa' 'rubberband' 'librubberband.so' 'shaderc'
+         'libshaderc_shared.so' 'uchardet' 'vulkan-icd-loader' 'wayland' 'xdg-utils'
+         'zlib')
+makedepends=('git' 'python-docutils' 'ladspa' 'wayland-protocols'
+             'ffnvcodec-headers' 'vulkan-headers')
+optdepends=('yt-dlp: for video-sharing websites playback'
+            'youtube-dl: for video-sharing websites playback')
+replaces=('mpv')
+provides=('mpv' 'libmpv.so')
+conflicts=('mpv')
+options=('!emptydirs')
+source=("https://github.com/mpv-player/mpv/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd mpv-${pkgver}
+
+  ./bootstrap.py
+  ./waf configure --prefix=/usr \
+    --confdir=/etc/mpv \
+    --disable-cplayer \
+    --enable-cdda \
+    --enable-dvb \
+    --enable-dvdnav \
+    --enable-libarchive \
+    --enable-libmpv-shared \
+    --disable-build-date \
+    --disable-caca \
+    --disable-javascript
+
+  ./waf build
+}
+
+package() {
+  cd mpv-${pkgver}
+
+  ./waf install --destdir=$pkgdir
+}
+
