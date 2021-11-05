@@ -1,0 +1,47 @@
+_pkgname=gnome-online-accounts
+pkgname=$_pkgname-cactus
+pkgver=3.40.1
+pkgrel=1
+pkgdesc="Single sign-on framework for GNOME"
+url="https://wiki.gnome.org/Projects/GnomeOnlineAccounts"
+arch=('x86_64' 'armv7h' 'aarch64')
+license=(LGPL)
+depends=(webkit2gtk json-glib libnotify rest libsecret)
+makedepends=(gobject-introspection gtk-doc vala git meson)
+provides=($_pkgname libgoa-1.0.so libgoa-backend-1.0.so)
+conflicts=($_pkgname)
+_commit=1ad63e98321dca0be1fe213bb88267d848a7ded0
+source=("git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git#commit=$_commit")
+sha256sums=('SKIP')
+
+pkgver() {
+	cd $_pkgname
+	git describe --tags | sed 's/-/+/g'
+}
+
+build() {
+	arch-meson $_pkgname build \
+		-D exchange=false \
+		-D facebook=false \
+		-D fedora=false \
+		-D flickr=false \
+		-D foursquare=false \
+		-D google=false \
+		-D kerberos=false \
+		-D lastfm=false \
+		-D owncloud=false \
+		-D windows_live=false \
+		-D media_server=false \
+		-D gtk_doc=true \
+		-D man=true
+	meson compile -C build
+}
+
+check() {
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	meson install -C build --destdir $pkgdir
+}
+

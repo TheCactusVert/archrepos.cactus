@@ -1,0 +1,61 @@
+_pkgname=gnome-control-center
+pkgname=$_pkgname-cactus
+pkgver=41.0
+pkgrel=1
+pkgdesc="GNOME's main interface to configure various aspects of the desktop - without Cheese dependency"
+arch=('x86_64' 'armv7h' 'aarch64')
+url="https://gitlab.gnome.org/GNOME/$_pkgname"
+license=('GPL2')
+groups=('gnome')
+depends=(
+	'accountsservice' 'bolt' 'colord-gtk' 'cups-pk-helper' 'gnome-bluetooth'
+	'gnome-color-manager' 'gnome-desktop' 'gnome-online-accounts'
+	'gnome-settings-daemon' 'gsettings-desktop-schemas' 'gsound' 'gtk3'
+	'libgnomekbd' 'libgtop' 'libgudev' 'libhandy' 'libibus' 'libmm-glib'
+	'libpwquality' 'nm-connection-editor' 'power-profiles-daemon' 'smbclient'
+	'sound-theme-freedesktop' 'udisks2' 'upower'
+)
+optdepends=(
+	'gnome-user-share: WebDAV file sharing'
+	'gnome-remote-desktop: screen sharing'
+	'openssh: remote login'
+	'rygel: media sharing'
+	'system-config-printer: Printer settings'
+)
+makedepends=('docbook-xsl' 'meson' 'modemmanager' 'python')
+checkdepends=('python-dbusmock' 'python-gobject' 'xorg-server-xvfb')
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+_gvccommit='c5ab6037f460406ac9799b1e5765de3ce0097a8b'
+source=(
+	"$pkgname-$pkgver-$pkgrel.tar.gz::$url/-/archive/$pkgver/$_pkgname-$pkgver.tar.gz"
+	"$pkgname-$pkgver-$pkgrel-gvc.tar.gz::https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/$_gvccommit/libgnome-volume-control-$_gvccommit.tar.gz"
+)
+
+sha256sums=('SKIP' 'SKIP')
+
+prepare() {
+	cd $_pkgname-$pkgver
+	rm -rf 'subprojects/gvc/'
+	mv "../libgnome-volume-control-$_gvccommit/" 'subprojects/gvc/'
+}
+
+build() {
+	cd $_pkgname-$pkgver
+	arch-meson build \
+		-D documentation=true \
+		-D cheese=false \
+		-D snap=false
+	meson compile -C build
+}
+
+check() {
+	cd $_pkgname-$pkgver
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	cd $_pkgname-$pkgver
+	meson install -C build --destdir "$pkgdir"
+	install -d -o root -g 102 -m 750 "$pkgdir/usr/share/polkit-1/rules.d"
+}
