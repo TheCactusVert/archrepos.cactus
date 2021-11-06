@@ -1,8 +1,8 @@
 # Maintainer: Kevin Gavrois <kevin@gavrois.fr>
 
-pkgname=dotter-rs
 _pkgname=dotter
-pkgver=0.12.7
+pkgname=dotter-rs
+pkgver=0.12.7.r0.g2157499
 pkgrel=1
 pkgdesc='A dotfile manager and templater written in Rust'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -11,21 +11,26 @@ license=('Unlicense')
 conflicts=($_pkgname)
 depends=('gcc-libs')
 makedepends=('rust')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+source=("git+https://github.com/SuperCuber/$_pkgname.git")
 sha512sums=('SKIP')
 
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
 build() {
-	cd $_pkgname-$pkgver
+	cd $_pkgname
 	cargo build --release --locked
 }
 
 check() {
-	cd $_pkgname-$pkgver
+	cd $_pkgname
 	cargo test --release --locked
 }
 
 package() {
-	cd $_pkgname-$pkgver
+	cd $_pkgname
 	install -Dm755 target/release/$_pkgname -t $pkgdir/usr/bin
 	install -Dm644 README.md -t $pkgdir/usr/share/doc/$pkgname
 }

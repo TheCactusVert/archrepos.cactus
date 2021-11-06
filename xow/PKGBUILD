@@ -1,8 +1,9 @@
 # Maintainer: Kevin Gavrois <kevin@gavrois.fr>
 
+_pkgname=xow
 pkgname=xow
-pkgver=0.5
-pkgrel=2
+pkgver=0.5.r28.ga396e3f
+pkgrel=1
 pkgdesc='Linux driver for the Xbox One wireless dongle'
 arch=('x86_64')
 url='https://github.com/medusalix/xow'
@@ -10,16 +11,20 @@ license=('GPL2')
 depends=('libusb')
 makedepends=('cabextract')
 conflicts=('xow-git')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/medusalix/xow/archive/v$pkgver.tar.gz")
-sha256sum=('SKIP')
+source=("git+https://github.com/medusalix/$pkgname.git")
+sha256sums=('SKIP')
+
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
 
 build() {
-	cd $pkgname-$pkgver
+	cd $_pkgname
 	make PREFIX=/usr BUILD=RELEASE
-	make PREFIX=/usr BUILD=RELEASE xow.service
 }
 
 package() {
-	cd $pkgname-$pkgver
+	cd $_pkgname
 	make PREFIX=/usr DESTDIR=$pkgdir SYSDDIR=/usr/lib/systemd/system install
 }

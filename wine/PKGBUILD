@@ -1,8 +1,9 @@
 # Maintainer: Kevin Gavrois <kevin@gavrois.fr>
 
-pkgname=wine-proton
-pkgver=6.3
-pkgrel=7
+_pkgname=wine
+pkgname=$_pkgname-cactus
+pkgver=6.3.7.r0.g5848899423d
+pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'
@@ -93,7 +94,7 @@ optdepends=(
 options=('staticlibs')
 install="$pkgname.install"
 source=(
-	"https://github.com/ValveSoftware/wine/archive/refs/tags/proton-wine-${pkgver}-${pkgrel}.tar.gz"
+	"git+https://github.com/ValveSoftware/$_pkgname.git"
 	'30-win32-aliases.conf'
 	'wine-binfmt.conf')
 sha256sums=(
@@ -104,8 +105,13 @@ sha256sums=(
 provides=("wine=${pkgver}")
 conflicts=('wine')
 
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^proton.wine.//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
 prepare() {
-	cd $pkgname-wine-$pkgver-$pkgrel/
+	cd $_pkgname
 
 	# workaround for FS#55128
 	# https://bugs.archlinux.org/task/55128
@@ -121,16 +127,16 @@ prepare() {
 	./tools/make_requests
 
 	# delete old build dirs (from previous builds) and make new ones
-	rm -rf $srcdir/$pkgname-64
-	rm -rf $srcdir/$pkgname-32
+	rm -rf $srcdir/build64
+	rm -rf $srcdir/build32
 }
 
 build() {
 	# build wine 64-bit
 	echo 'Building Wine-64...'
-	mkdir $srcdir/$pkgname-64
-	cd    $srcdir/$pkgname-64
-	../$pkgname-wine-$pkgver-$pkgrel/configure \
+	mkdir $srcdir/build64
+	cd    $srcdir/build64
+	../$_pkgname/configure \
 		--prefix=/usr \
 		--libdir=/usr/lib \
 		--with-x \
@@ -140,29 +146,29 @@ build() {
 	make -j
 
 	echo 'Building Wine-32...'
-	mkdir $srcdir/$pkgname-32
-	cd    $srcdir/$pkgname-32
-	../$pkgname-wine-$pkgver-$pkgrel/configure \
+	mkdir $srcdir/build32
+	cd    $srcdir/build32
+	../$_pkgname/configure \
 		--prefix=/usr \
 		--libdir=/usr/lib32 \
 		--with-x \
 		--with-gstreamer \
 		--disable-tests \
-		--with-wine64=${srcdir}/${pkgname}-64
+		--with-wine64=${srcdir}/build64
 	make -j
 }
 
 package() {
 	# package wine 32-bit
 	echo 'Packaging Wine-32...'
-	cd    $srcdir/$pkgname-32
+	cd    $srcdir/build32
 	make prefix=$pkgdir/usr \
 	libdir=$pkgdir/usr/lib32 \
 	dlldir=$pkgdir/usr/lib32/wine install
 
 	# package wine 64-bit
 	echo 'Packaging Wine-64...'
-	cd    $srcdir/$pkgname-64
+	cd    $srcdir/build64
 	make prefix=$pkgdir/usr \
 	libdir=$pkgdir/usr/lib \
 	dlldir=$pkgdir/usr/lib/wine install

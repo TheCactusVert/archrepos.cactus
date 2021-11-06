@@ -1,6 +1,8 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
 _pkgname=gnome-control-center
 pkgname=$_pkgname-cactus
-pkgver=41.0
+pkgver=41.0.r52.g77da0efd0
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop - without Cheese dependency"
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -26,23 +28,21 @@ makedepends=('docbook-xsl' 'meson' 'modemmanager' 'python')
 checkdepends=('python-dbusmock' 'python-gobject' 'xorg-server-xvfb')
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-_gvccommit='c5ab6037f460406ac9799b1e5765de3ce0097a8b'
-source=(
-	"$pkgname-$pkgver-$pkgrel.tar.gz::$url/-/archive/$pkgver/$_pkgname-$pkgver.tar.gz"
-	"$pkgname-$pkgver-$pkgrel-gvc.tar.gz::https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/$_gvccommit/libgnome-volume-control-$_gvccommit.tar.gz"
-)
+source=("git+https://gitlab.gnome.org/GNOME/$_pkgname.git")
+sha256sums=('SKIP')
 
-sha256sums=('SKIP' 'SKIP')
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
 
 prepare() {
-	cd $_pkgname-$pkgver
-	rm -rf 'subprojects/gvc/'
-	mv "../libgnome-volume-control-$_gvccommit/" 'subprojects/gvc/'
+	cd $_pkgname
+	git submodule update --init
 }
 
 build() {
-	cd $_pkgname-$pkgver
-	arch-meson build \
+	arch-meson $_pkgname build \
 		-D documentation=true \
 		-D cheese=false \
 		-D snap=false
@@ -50,12 +50,10 @@ build() {
 }
 
 check() {
-	cd $_pkgname-$pkgver
 	meson test -C build --print-errorlogs
 }
 
 package() {
-	cd $_pkgname-$pkgver
-	meson install -C build --destdir "$pkgdir"
-	install -d -o root -g 102 -m 750 "$pkgdir/usr/share/polkit-1/rules.d"
+	meson install -C build --destdir $pkgdir
+	install -d -o root -g 102 -m 750 $pkgdir/usr/share/polkit-1/rules.d
 }

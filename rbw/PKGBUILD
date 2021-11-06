@@ -1,7 +1,8 @@
 # Maintainer: Kevin Gavrois <kevin@gavrois.fr>
 
-pkgname=rbw-cactus
-pkgver=1.3.0
+_pkgname=rbw
+pkgname=$_pkgname-cactus
+pkgver=1.4.1.r3.gcc20037
 pkgrel=1
 makedepends=('rust')
 depends=('pinentry' 'openssl')
@@ -9,25 +10,30 @@ provides=('rbw')
 conflicts=('rbw')
 arch=('i686' 'x86_64')
 url='https://git.tozt.net/rbw'
-source=("https://github.com/doy/rbw/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('7255e322b8c6bd6ee9da00f4c54211e94a132abec15b9f51b8351af31a4744ac')
+source=("git+https://github.com/doy/$_pkgname.git")
+sha256sums=('SKIP')
 pkgdesc='Unofficial bitwarden CLI'
 license=('MIT')
 
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
 build() {
-	cd $srcdir/rbw-$pkgver
+	cd $_pkgname
 	cargo build --release --locked
 	cargo run --release --locked --bin rbw -- gen-completions bash >bash-completions
 	cargo run --release --locked --bin rbw -- gen-completions zsh >zsh-completions
 }
 
 check() {
-	cd $srcdir/rbw-$pkgver
+	cd $_pkgname
 	cargo test --release --locked
 }
 
 package() {
-	cd $srcdir/rbw-$pkgver
+	cd $_pkgname
 	install -Dm755 target/release/rbw -t $pkgdir/usr/bin/
 	install -Dm755 target/release/rbw-agent -t $pkgdir/usr/bin/
 	install -Dm644 LICENSE -t $pkgdir/usr/share/licenses/rbw/
