@@ -16,11 +16,11 @@ Add these lines to `/etc/pacman.conf`:
 Server = https://arch.gavrois.fr/$repo/os/$arch
 ```
 
-## Installing wine-proton
+## Installing wine
 
 Use the following commands:
 ```bash
-doas pacman -S wine-proton dxvk-winelib vkd3d-winelib
+doas pacman -S wine-cactus dxvk-winelib vkd3d-winelib
 winedxvk install --symlink # With or without WINEPREFIX
 winevkd3d install --symlink # With or without WINEPREFIX
 ```

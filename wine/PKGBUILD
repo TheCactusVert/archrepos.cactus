@@ -163,15 +163,15 @@ package() {
 	echo 'Packaging Wine-32...'
 	cd    $srcdir/build32
 	make prefix=$pkgdir/usr \
-	libdir=$pkgdir/usr/lib32 \
-	dlldir=$pkgdir/usr/lib32/wine install
+		libdir=$pkgdir/usr/lib32 \
+		dlldir=$pkgdir/usr/lib32/wine install
 
 	# package wine 64-bit
 	echo 'Packaging Wine-64...'
 	cd    $srcdir/build64
 	make prefix=$pkgdir/usr \
-	libdir=$pkgdir/usr/lib \
-	dlldir=$pkgdir/usr/lib/wine install
+		libdir=$pkgdir/usr/lib \
+		dlldir=$pkgdir/usr/lib/wine install
 
 	# font aliasing settings for Win32 applications
 	install -d ${pkgdir}/etc/fonts/conf.{avail,d}
