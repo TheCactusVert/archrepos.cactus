@@ -1,0 +1,46 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+_pkgname=gnome-settings-daemon
+pkgname=$_pkgname-cactus
+pkgver=41.0.r16.g75efbdf3
+pkgrel=1
+pkgdesc="GNOME Settings Daemon"
+url="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
+arch=('x86_64' 'armv7h' 'aarch64')
+license=(GPL)
+depends=(dconf gnome-desktop gsettings-desktop-schemas libcanberra-pulse libnotify systemd libwacom
+         pulseaudio pulseaudio-alsa upower librsvg libgweather geocode-glib geoclue nss libgudev
+         gtk3 libnm gcr)
+makedepends=(libxslt docbook-xsl python git meson usbguard)
+checkdepends=(python-gobject python-dbusmock umockdev python-pytest-xvfb)
+optdepends=('usbguard: USB protection support')
+groups=(gnome)
+backup=(etc/xdg/Xwayland-session.d/00-xrdb)
+provides=("$_pkgname")
+conflicts=("$_pkgname")
+source=("git+https://gitlab.gnome.org/GNOME/$_pkgname.git")
+sha256sums=('SKIP')
+
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd $_pkgname
+	git submodule update --init
+}
+
+build() {
+	arch-meson $_pkgname build
+	meson compile -C build
+}
+
+check() {
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	meson install -C build --destdir $pkgdir
+}
+
