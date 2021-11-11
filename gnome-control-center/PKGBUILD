@@ -2,10 +2,10 @@
 
 _pkgname=gnome-control-center
 pkgname=$_pkgname-cactus
-pkgver=41.0.r53.g473f27446
+pkgver=41.0.r58.g1a9540c94
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop - without Cheese dependency"
-arch=('x86_64' 'armv7h' 'aarch64')
+arch=('x86_64' 'aarch64')
 url="https://gitlab.gnome.org/GNOME/$_pkgname"
 license=('GPL2')
 groups=('gnome')

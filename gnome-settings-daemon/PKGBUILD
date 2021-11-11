@@ -2,11 +2,11 @@
 
 _pkgname=gnome-settings-daemon
 pkgname=$_pkgname-cactus
-pkgver=41.0.r16.g75efbdf3
+pkgver=41.0.r19.gffa0deaf
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 url="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
-arch=('x86_64' 'armv7h' 'aarch64')
+arch=('x86_64' 'aarch64')
 license=(GPL)
 depends=(dconf gnome-desktop gsettings-desktop-schemas libcanberra-pulse libnotify systemd libwacom
          pulseaudio pulseaudio-alsa upower librsvg libgweather geocode-glib geoclue nss libgudev

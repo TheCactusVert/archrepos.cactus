@@ -1,3 +1,0 @@
-post_install() {
-	echo "Run 'winevkd3d install' on your wine prefix to install the library (use --symlink to avoid running this on every update)."
-}
