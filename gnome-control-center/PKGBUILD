@@ -2,7 +2,7 @@
 
 _pkgname=gnome-control-center
 pkgname=$_pkgname-cactus
-pkgver=41.0.r58.g1a9540c94
+pkgver=41.0.r75.gef0bdef4a
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop - without Cheese dependency"
 arch=('x86_64' 'aarch64')
@@ -25,7 +25,7 @@ optdepends=(
 	'system-config-printer: Printer settings'
 )
 makedepends=('docbook-xsl' 'meson' 'modemmanager' 'python')
-checkdepends=('python-dbusmock' 'python-gobject' 'xorg-server-xvfb')
+checkdepends=('python-dbusmock' 'python-gobject' 'xorg-server-xvfb' 'umockdev')
 provides=("$_pkgname")
 conflicts=("$_pkgname")
 source=("git+https://gitlab.gnome.org/GNOME/$_pkgname.git")
