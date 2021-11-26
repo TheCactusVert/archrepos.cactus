@@ -2,7 +2,7 @@
 
 _pkgname=gnome-settings-daemon
 pkgname=$_pkgname-cactus
-pkgver=41.0.r21.gc4a4b910
+pkgver=41.0.r23.g95380d78
 pkgrel=1
 pkgdesc="GNOME Settings Daemon"
 url="https://gitlab.gnome.org/GNOME/gnome-settings-daemon"

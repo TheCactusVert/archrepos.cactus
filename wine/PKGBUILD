@@ -2,7 +2,7 @@
 
 _pkgname=wine
 pkgname=$_pkgname-cactus
-pkgver=6.3.7.r0.g5848899423d
+pkgver=6.3.8.r0.g03891654faf
 pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
@@ -21,8 +21,8 @@ depends=(
 	'freetype2' 'lib32-freetype2'
 	'libsm' 'lib32-libsm'
 	'gcc-libs' 'lib32-gcc-libs'
-	'libpcap' 'lib32-libpcap'
-	'libgphoto2'
+#	'libpcap' 'lib32-libpcap'
+#	'libgphoto2'
 	'faudio' 'lib32-faudio'
 	'vkd3d' 'lib32-vkd3d'
 )
@@ -41,12 +41,12 @@ makedepends=(
 	'libxmu' 'lib32-libxmu'
 	'libxxf86vm' 'lib32-libxxf86vm'
 	'libldap' 'lib32-libldap'
-	'libcups' 'lib32-libcups'
+#	'libcups' 'lib32-libcups'
 	'libusb' 'lib32-libusb'
-	'krb5' 'lib32-krb5'
+#	'krb5' 'lib32-krb5'
 	'mpg123' 'lib32-mpg123'
 	'openal' 'lib32-openal'
-	'v4l-utils' 'lib32-v4l-utils'
+#	'v4l-utils' 'lib32-v4l-utils'
 	'libpulse' 'lib32-libpulse'
 	'alsa-lib' 'lib32-alsa-lib'
 	'libxcomposite' 'lib32-libxcomposite'
@@ -59,8 +59,8 @@ makedepends=(
 	'gst-plugins-base-libs' 'lib32-gst-plugins-base-libs'
 	'vulkan-headers'
 	'vulkan-icd-loader' 'lib32-vulkan-icd-loader'
-	'smbclient'
-	'gsm'
+#	'smbclient'
+#	'gsm'
 
 	${depends[@]}
 )
@@ -73,7 +73,7 @@ optdepends=(
 	'gnutls: Cryptography.' 'lib32-gnutls: Cryptography.'
 	'mpg123: mp3 decoding.' 'lib32-mpg123: mp3 decoding.'
 	'openal: Audio engine.' 'lib32-openal: Audio engine.'
-	'v4l-utils: Video capture.' 'lib32-v4l-utils: Video capture.'
+#	'v4l-utils: Video capture.' 'lib32-v4l-utils: Video capture.'
 	'libpulse: Sound backend.' 'lib32-libpulse: Sound backend.'
 	'alsa-lib: Sound backend.' 'lib32-alsa-lib: Sound backend.'
 	'ocl-icd: Parallel computing / GPGPU.' 'lib32-ocl-icd: Parallel computing / GPGPU.'
@@ -81,8 +81,8 @@ optdepends=(
 	'gstreamer: Multimedia playback.' 'lib32-gstreamer: Multimedia playback.'
 	'gst-plugins-base-libs: Multimedia playback.' 'lib32-gst-plugins-base-libs: Multimedia playback.'
 	'vulkan-icd-loader: Hardware-accelerated/3D graphics.' 'lib32-vulkan-icd-loader: Hardware-accelerated/3D graphics.'
-	'libcups: Printing.' 'lib32-libcups: Printing.'
-	'smbclient: Networking.'
+#	'libcups: Printing.' 'lib32-libcups: Printing.'
+#	'smbclient: Networking.'
 
 	'libxcomposite: Window management.' 'lib32-libxcomposite: Window management.'
 	'libxinerama: Window management.' 'lib32-libxinerama: Window management.'
@@ -119,8 +119,13 @@ prepare() {
 	export CFLAGS="${CFLAGS/-fno-plt/}"
 	export LDFLAGS="${LDFLAGS/,-z,now/}"
 
-	# fix path of opencl headers
+	# Fix path of opencl headers
 	sed 's|OpenCL/opencl.h|CL/opencl.h|g' -i configure*
+	# Fix openldap 2.5+ detection
+	sed 's/-lldap_r/-lldap/' -i configure
+
+	# Dirty hack (temporary)
+	find ./ -type f -exec sed -i 's/ldap_connect(/wine_ldap_connect(/g' {} +
 
 	# https://github.com/ValveSoftware/wine/issues/120#issuecomment-901958052
 	autoreconf -f
@@ -141,6 +146,15 @@ build() {
 		--libdir=/usr/lib \
 		--with-x \
 		--with-gstreamer \
+		--without-cups \
+		--without-gphoto \
+		--without-gsm \
+		--without-krb5 \
+		--without-mingw \
+		--without-netapi \
+		--without-pcap \
+		--without-sane \
+		--without-v4l2 \
 		--enable-win64 \
 		--disable-tests
 	make -j
@@ -153,6 +167,15 @@ build() {
 		--libdir=/usr/lib32 \
 		--with-x \
 		--with-gstreamer \
+		--without-cups \
+		--without-gphoto \
+		--without-gsm \
+		--without-krb5 \
+		--without-mingw \
+		--without-netapi \
+		--without-pcap \
+		--without-sane \
+		--without-v4l2 \
 		--disable-tests \
 		--with-wine64=${srcdir}/build64
 	make -j
@@ -162,14 +185,14 @@ package() {
 	# package wine 32-bit
 	echo 'Packaging Wine-32...'
 	cd    $srcdir/build32
-	make prefix=$pkgdir/usr \
+	make	prefix=$pkgdir/usr \
 		libdir=$pkgdir/usr/lib32 \
 		dlldir=$pkgdir/usr/lib32/wine install
 
 	# package wine 64-bit
 	echo 'Packaging Wine-64...'
 	cd    $srcdir/build64
-	make prefix=$pkgdir/usr \
+	make	prefix=$pkgdir/usr \
 		libdir=$pkgdir/usr/lib \
 		dlldir=$pkgdir/usr/lib/wine install
 
