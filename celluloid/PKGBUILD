@@ -1,0 +1,39 @@
+_pkgname=celluloid
+pkgname=${_pkgname}-cactus
+pkgver=0.22.r14.g859f7c4
+pkgrel=1
+pkgdesc='Simple GTK+ frontend for mpv'
+arch=('x86_64')
+url='https://celluloid-player.github.io/'
+license=('GPL3')
+depends=('gtk4' 'mpv' 'libadwaita')
+makedepends=('appstream-glib' 'meson')
+conflicts=('gnome-mpv' 'celluloid')
+provides=('gnome-mpv' 'celluloid')
+replaces=('gnome-mpv-git')
+source=("git+https://github.com/celluloid-player/$_pkgname.git")
+sha256sums=('SKIP')
+
+prepare() {
+	cd $_pkgname
+	git merge adaf87842f83d300ab46b20e3b0ac970939e90c3
+}
+
+pkgver() {
+	cd $_pkgname
+	git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+	arch-meson $_pkgname build
+	meson compile -C build
+}
+
+check() {
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install -C build
+}
+
