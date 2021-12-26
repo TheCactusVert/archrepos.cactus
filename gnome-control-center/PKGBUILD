@@ -2,7 +2,7 @@
 
 _pkgname=gnome-control-center
 pkgname=$_pkgname-cactus
-pkgver=41.0.r78.g8802857f6
+pkgver=41.0.r156.g5c903af01
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop - without Cheese dependency"
 arch=('x86_64' 'aarch64')
@@ -44,7 +44,6 @@ prepare() {
 build() {
 	arch-meson $_pkgname build \
 		-D documentation=true \
-		-D cheese=false \
 		-D snap=false
 	meson compile -C build
 }

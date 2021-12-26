@@ -1,6 +1,6 @@
 _pkgname=celluloid
 pkgname=${_pkgname}-cactus
-pkgver=0.22.r14.g859f7c4
+pkgver=0.22.r15.g6539dba
 pkgrel=1
 pkgdesc='Simple GTK+ frontend for mpv'
 arch=('x86_64')
@@ -16,7 +16,7 @@ sha256sums=('SKIP')
 
 prepare() {
 	cd $_pkgname
-	git merge adaf87842f83d300ab46b20e3b0ac970939e90c3
+	git merge -m "libadwaita" adaf87842f83d300ab46b20e3b0ac970939e90c3
 }
 
 pkgver() {

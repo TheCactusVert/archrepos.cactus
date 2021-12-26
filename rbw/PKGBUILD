@@ -2,7 +2,7 @@
 
 _pkgname=rbw
 pkgname=$_pkgname-cactus
-pkgver=1.4.1.r3.gcc20037
+pkgver=1.4.1.r6.g94a0009
 pkgrel=1
 makedepends=('rust')
 depends=('pinentry')
