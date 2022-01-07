@@ -2,7 +2,7 @@
 
 _pkgname=mpv
 pkgname=lib${_pkgname}-cactus
-pkgver=0.34.0.r118.g2157bb1995
+pkgver=0.34.0.r158.g8087e3371f
 pkgrel=1
 pkgdesc='A free, open source, and cross-platform media player'
 arch=('x86_64' 'aarch64')

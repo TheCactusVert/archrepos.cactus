@@ -1,6 +1,6 @@
 _pkgname=celluloid
 pkgname=${_pkgname}-cactus
-pkgver=0.22.r15.gd62ff57
+pkgver=0.22.r23.g046dcdb
 pkgrel=1
 pkgdesc='Simple GTK+ frontend for mpv'
 arch=('x86_64')

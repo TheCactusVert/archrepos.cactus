@@ -1,0 +1,34 @@
+_pkgname=ani-cli
+pkgname=${_pkgname}-cactus
+pkgver=1.6.r25.g2e7bf1a
+pkgrel=1
+pkgdesc="A cli to browse and watch anime."
+arch=('any')
+url="https://github.com/pystardust/ani-cli"
+license=('GPL3')
+depends=('grep' 'sed' 'curl' 'openssl' 'jq')
+optdepends=(
+	'celluloid: the default video player'
+	'vlc: an alternative video player'
+	'aria2: for downloading'
+	)
+makedepends=('git')
+source=("git+https://github.com/pystardust/$_pkgname.git")
+md5sums=('SKIP')
+
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd $_pkgname
+	sed -i 's/"mpv"/"celluloid"/g' ani-cli
+	sed -i 's/--referrer/--mpv-referrer/g' ani-cli
+	sed -i 's/--title/--mpv-title/g' ani-cli
+}
+
+package() {
+        cd $_pkgname
+        install -Dm755 ./ani-cli $pkgdir/usr/bin/ani-cli
+}

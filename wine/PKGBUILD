@@ -2,7 +2,7 @@
 
 _pkgname=wine
 pkgname=$_pkgname-cactus
-pkgver=6.3.8.r0.g03891654faf
+pkgver=6.3.8b.r0.gf0b3d09ad69
 pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
