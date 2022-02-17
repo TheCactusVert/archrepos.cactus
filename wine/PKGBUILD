@@ -77,7 +77,7 @@ optdepends=(
 options=('staticlibs')
 install="$pkgname.install"
 source=(
-	"git+https://github.com/ValveSoftware/$_pkgname.git"
+	"$_pkgname::git+https://github.com/ValveSoftware/wine.git"
 	'30-win32-aliases.conf'
 	'wine-binfmt.conf')
 sha256sums=(

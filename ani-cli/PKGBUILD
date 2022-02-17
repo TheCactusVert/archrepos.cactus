@@ -1,6 +1,6 @@
 _pkgname=ani-cli
 pkgname=${_pkgname}-cactus
-pkgver=1.6.r25.g2e7bf1a
+pkgver=1.8.r1.g1e97d1f
 pkgrel=1
 pkgdesc="A cli to browse and watch anime."
 arch=('any')
@@ -13,7 +13,7 @@ optdepends=(
 	'aria2: for downloading'
 	)
 makedepends=('git')
-source=("git+https://github.com/pystardust/$_pkgname.git")
+source=("$_pkgname::git+https://github.com/pystardust/ani-cli.git")
 md5sums=('SKIP')
 
 pkgver() {
@@ -25,7 +25,7 @@ prepare() {
 	cd $_pkgname
 	sed -i 's/"mpv"/"celluloid"/g' ani-cli
 	sed -i 's/--referrer/--mpv-referrer/g' ani-cli
-	sed -i 's/--title/--mpv-title/g' ani-cli
+	sed -i 's/--force-media-title/--mpv-force-media-title/g' ani-cli
 }
 
 package() {

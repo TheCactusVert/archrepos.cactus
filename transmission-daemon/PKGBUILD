@@ -1,0 +1,50 @@
+_pkgname=transmission
+pkgname=$_pkgname-daemon-cactus
+pkgver=3.00.r0.gbb6b5a062
+pkgrel=1
+pkgdesc="Fast, easy, and free BitTorrent client (library)"
+arch=(x86_64 aarch64)
+url="http://www.transmissionbt.com/"
+license=(MIT)
+makedepends=(cmake)
+conflicts=('transmission-cli')
+provides=('transmission-cli')
+replaces=('transmission-cli')
+_commit=bb6b5a062ee594dfd4b7a12a6b6e860c43849bfd
+source=(
+	"$_pkgname::git+https://github.com/transmission/transmission#commit=$_commit"
+	"transmission.sysusers"
+	"transmission.tmpfiles")
+sha256sums=(
+	'SKIP'
+	'641310fb0590d40e00bea1b5b9c843953ab78edf019109f276be9c6a7bdaf5b2'
+	'1266032bb07e47d6bcdc7dabd74df2557cc466c33bf983a5881316a4cc098451')
+
+prepare() {
+	rm -rf build 2>>/dev/null
+	mkdir build
+	cd $_pkgname
+	git submodule update --init --recursive
+}
+
+pkgver() {
+	cd $_pkgname
+	git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+	cd build
+  
+	cmake ../$_pkgname -DCMAKE_INSTALL_PREFIX="/usr" -DLIB_INSTALL_DIR='/usr/lib' -DCMAKE_INSTAL_LIBDIR="/usr/lib" -DINSTALL_LIB=OFF -DENABLE_UTP=ON -DENABLE_GTK=OFF -DENABLE_QT=OFF -DENABLE_CLI=OFF -DENABLE_WEB=OFF -DENABLE_DAEMON=ON  -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_UTP=OFF
+	make
+}
+
+package(){
+	cd build
+	make -C daemon DESTDIR="$pkgdir" install
+	
+	install -Dm644 $srcdir/$_pkgname/daemon/transmission-daemon.service $pkgdir/usr/lib/systemd/system/transmission.service	
+    	install -Dm644 $srcdir/$_pkgname.sysusers $pkgdir/usr/lib/sysusers.d/transmission.conf
+    	install -Dm644 $srcdir/$_pkgname.tmpfiles $pkgdir/usr/lib/tmpfiles.d/transmission.conf
+}
+

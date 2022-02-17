@@ -1,6 +1,6 @@
 _pkgname=celluloid
 pkgname=${_pkgname}-cactus
-pkgver=0.22.r23.g046dcdb
+pkgver=0.22.r24.g7a8eabc
 pkgrel=1
 pkgdesc='Simple GTK+ frontend for mpv'
 arch=('x86_64')
@@ -11,8 +11,10 @@ makedepends=('appstream-glib' 'meson')
 conflicts=('gnome-mpv' 'celluloid')
 provides=('gnome-mpv' 'celluloid')
 replaces=('gnome-mpv-git')
-source=("git+https://github.com/celluloid-player/$_pkgname.git")
-sha256sums=('SKIP')
+source=(
+	"$_pkgname::git+https://github.com/celluloid-player/celluloid.git")
+sha256sums=(
+	'SKIP')
 
 prepare() {
 	cd $_pkgname

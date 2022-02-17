@@ -12,7 +12,7 @@ depends=(webkit2gtk json-glib libnotify rest libsecret)
 makedepends=(gobject-introspection gtk-doc vala git meson)
 provides=($_pkgname libgoa-1.0.so libgoa-backend-1.0.so)
 conflicts=($_pkgname)
-source=("git+https://gitlab.gnome.org/GNOME/$_pkgname.git")
+source=("$_pkgname::git+https://gitlab.gnome.org/GNOME/gnome-online-accounts.git")
 sha256sums=('SKIP')
 
 pkgver() {

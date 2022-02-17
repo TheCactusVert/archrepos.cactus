@@ -11,7 +11,7 @@ license=('Unlicense')
 conflicts=($_pkgname)
 depends=('gcc-libs')
 makedepends=('rust')
-source=("git+https://github.com/SuperCuber/$_pkgname.git")
+source=("$_pkgname::git+https://github.com/SuperCuber/dotter.git")
 sha512sums=('SKIP')
 
 pkgver() {

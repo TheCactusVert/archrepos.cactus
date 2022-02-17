@@ -11,7 +11,7 @@ license=('GPL2')
 depends=('libusb')
 makedepends=('cabextract')
 conflicts=('xow-git')
-source=("git+https://github.com/medusalix/$pkgname.git")
+source=("$_pkgname::git+https://github.com/medusalix/xow.git")
 sha256sums=('SKIP')
 
 pkgver() {
