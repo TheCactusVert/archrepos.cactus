@@ -6,6 +6,7 @@ pkgdesc="Fast, easy, and free BitTorrent client (library)"
 arch=(x86_64 aarch64)
 url="http://www.transmissionbt.com/"
 license=(MIT)
+depends=(libevent libnatpmp miniupnpc libb64)
 makedepends=(cmake)
 conflicts=('transmission-cli')
 provides=('transmission-cli')
