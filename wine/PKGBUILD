@@ -2,7 +2,7 @@
 
 _pkgname=wine
 pkgname=$_pkgname-cactus
-pkgver=6.3.8b.r0.gf0b3d09ad69
+pkgver=7.0.1.r0.gbdb21c72edc
 pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
@@ -25,7 +25,7 @@ depends=(
 	'vkd3d' 'lib32-vkd3d'
 )
 makedepends=(
-	'autoconf' 'bison' 'flex' 'pkgconf' 'gcc>=4.5.0-2'
+	'autoconf' 'bison' 'flex' 'pkgconf' 'gcc>=4.5.0-2' 'patch'
 	'libpng' 'lib32-libpng'
 	'libjpeg-turbo' 'lib32-libjpeg-turbo'
 	'libtiff' 'lib32-libtiff'
@@ -76,14 +76,17 @@ optdepends=(
 
 options=('staticlibs')
 install="$pkgname.install"
+_branch="proton_7.0"
 source=(
 	"$_pkgname::git+https://github.com/ValveSoftware/wine.git"
 	'30-win32-aliases.conf'
-	'wine-binfmt.conf')
+	'wine-binfmt.conf'
+	'futex.patch')
 sha256sums=(
 	'SKIP'
 	'9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
-	'6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4')
+	'6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4'
+	'0ff0061930783e731221498383e7c4188198a92a54431c9ab754f7ff5bd48ace')
 
 provides=("wine=${pkgver}")
 conflicts=('wine')
@@ -95,6 +98,8 @@ pkgver() {
 
 prepare() {
 	cd $_pkgname
+	
+	git checkout $_branch
 
 	# workaround for FS#55128
 	# https://bugs.archlinux.org/task/55128
@@ -103,14 +108,17 @@ prepare() {
 	export LDFLAGS="${LDFLAGS/,-z,now/}"
 
 	# Fix openldap 2.5+ detection
-	sed 's/-lldap_r/-lldap/' -i configure
+	#sed 's/-lldap_r/-lldap/' -i configure
 
 	# Dirty hack (temporary)
-	find ./ -type f -exec sed -i 's/ldap_connect(/wine_ldap_connect(/g' {} +
+	find ./ -type f -exec sed -i 's/ldap_connect(/ldap_connect_wine(/g' {} +
 
 	# https://github.com/ValveSoftware/wine/issues/120#issuecomment-901958052
+	./dlls/winevulkan/make_vulkan
 	autoreconf -f
 	./tools/make_requests
+	
+	patch -p1 < ../futex.patch
 
 	# delete old build dirs (from previous builds) and make new ones
 	rm -rf $srcdir/build64
@@ -119,9 +127,9 @@ prepare() {
 
 build() {
 	# build wine 64-bit
-	echo 'Building Wine-64...'
-	mkdir $srcdir/build64
-	cd    $srcdir/build64
+	echo	'Building Wine-64...'
+	mkdir	$srcdir/build64
+	cd	$srcdir/build64
 	../$_pkgname/configure \
 		--prefix=/usr \
 		--libdir=/usr/lib \
@@ -129,7 +137,6 @@ build() {
 		--with-gstreamer \
 		--without-cups \
 		--without-gphoto \
-		--without-gsm \
 		--without-krb5 \
 		--without-mingw \
 		--without-netapi \
@@ -138,12 +145,13 @@ build() {
 		--without-sane \
 		--without-v4l2 \
 		--enable-win64 \
+		--disable-win16 \
 		--disable-tests
 	make -j
 
-	echo 'Building Wine-32...'
-	mkdir $srcdir/build32
-	cd    $srcdir/build32
+	echo	'Building Wine-32...'
+	mkdir	$srcdir/build32
+	cd	$srcdir/build32
 	../$_pkgname/configure \
 		--prefix=/usr \
 		--libdir=/usr/lib32 \
@@ -151,7 +159,6 @@ build() {
 		--with-gstreamer \
 		--without-cups \
 		--without-gphoto \
-		--without-gsm \
 		--without-krb5 \
 		--without-mingw \
 		--without-netapi \
@@ -159,6 +166,7 @@ build() {
 		--without-pcap \
 		--without-sane \
 		--without-v4l2 \
+		--disable-win16 \
 		--disable-tests \
 		--with-wine64=${srcdir}/build64
 	make -j
@@ -166,15 +174,15 @@ build() {
 
 package() {
 	# package wine 32-bit
-	echo 'Packaging Wine-32...'
-	cd    $srcdir/build32
+	echo	'Packaging Wine-32...'
+	cd	$srcdir/build32
 	make	prefix=$pkgdir/usr \
 		libdir=$pkgdir/usr/lib32 \
 		dlldir=$pkgdir/usr/lib32/wine install
 
 	# package wine 64-bit
-	echo 'Packaging Wine-64...'
-	cd    $srcdir/build64
+	echo	'Packaging Wine-64...'
+	cd	$srcdir/build64
 	make	prefix=$pkgdir/usr \
 		libdir=$pkgdir/usr/lib \
 		dlldir=$pkgdir/usr/lib/wine install
