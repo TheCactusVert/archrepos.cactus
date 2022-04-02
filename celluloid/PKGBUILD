@@ -1,6 +1,6 @@
 _pkgname=celluloid
 pkgname=${_pkgname}-cactus
-pkgver=0.22.r28.gf0fe196
+pkgver=0.23.r24.gc59f739
 pkgrel=1
 pkgdesc='Simple GTK+ frontend for mpv'
 arch=('x86_64')
@@ -15,11 +15,6 @@ source=(
 	"$_pkgname::git+https://github.com/celluloid-player/celluloid.git")
 sha256sums=(
 	'SKIP')
-
-prepare() {
-	cd $_pkgname
-	git merge --no-signoff -m "libadwaita" adaf87842f83d300ab46b20e3b0ac970939e90c3
-}
 
 pkgver() {
 	cd $_pkgname
