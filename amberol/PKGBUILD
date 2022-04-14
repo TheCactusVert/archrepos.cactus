@@ -1,0 +1,41 @@
+_pkgname=amberol
+pkgname=${_pkgname}-cactus
+pkgver=0.2.1.r34.gdd16c58
+pkgrel=1
+pkgdesc="Plays music, and nothing else"
+arch=('x86_64')
+url="https://gitlab.gnome.org/ebassi/amberol"
+license=('GPL3')
+depends=('libadwaita' 'gstreamer')
+makedepends=('meson' 'appstream-glib')
+#checkdepends=('appstream-glib')
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://gitlab.gnome.org/ebassi/amberol.git")
+sha256sums=(
+	'SKIP')
+
+pkgver() {
+	cd $_pkgname
+	git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+	arch-meson $_pkgname build
+	meson compile -C build
+}
+
+check() {
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install -C build
+}
