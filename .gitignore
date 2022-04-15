@@ -4,6 +4,7 @@
 *.pkg.*
 *.part
 *.git
+*.cab
 
 # No subfolders
 */*/
