@@ -2,12 +2,12 @@
 
 _pkgname=mpv
 pkgname=lib${_pkgname}-cactus
-pkgver=0.34.0.r239.ga76b1f4abd
+pkgver=0.34.0.r265.g305332f8a0
 pkgrel=1
 pkgdesc='A free, open source, and cross-platform media player'
 arch=('x86_64' 'aarch64')
-license=('GPL3')
 url='https://mpv.io/'
+license=('GPL3')
 depends=('alsa-lib' 'libasound.so' 'ffmpeg' 'libavcodec.so' 'libavdevice.so'
          'libavfilter.so' 'libavformat.so' 'libavutil.so' 'libswresample.so' 'libswscale.so'
          'glibc' 'jack' 'libjack.so' 'lcms2' 'liblcms2.so' 'libarchive'
@@ -24,9 +24,15 @@ optdepends=('yt-dlp: for video-sharing websites playback'
             'youtube-dl: for video-sharing websites playback')
 provides=($_pkgname 'libmpv.so')
 conflicts=($_pkgname)
+replaces=()
+backup=()
 options=('!emptydirs')
-source=("$_pkgname::git+https://github.com/mpv-player/mpv.git")
-sha256sums=('SKIP')
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/mpv-player/mpv.git")
+sha256sums=(
+	'SKIP')
 
 pkgver() {
        cd $_pkgname

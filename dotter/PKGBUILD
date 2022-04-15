@@ -8,11 +8,20 @@ pkgdesc='A dotfile manager and templater written in Rust'
 arch=('x86_64' 'aarch64')
 url='https://github.com/SuperCuber/dotter'
 license=('Unlicense')
-conflicts=($_pkgname)
 depends=('gcc-libs')
 makedepends=('rust')
-source=("$_pkgname::git+https://github.com/SuperCuber/dotter.git")
-sha512sums=('SKIP')
+optdepends=()
+provides=()
+conflicts=($_pkgname)
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/SuperCuber/dotter.git")
+sha256sums=(
+	'SKIP')
 
 pkgver() {
        cd $_pkgname

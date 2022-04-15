@@ -1,16 +1,23 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
 _pkgname=celluloid
 pkgname=${_pkgname}-cactus
-pkgver=0.23.r24.gc59f739
+pkgver=0.23.r29.gb62fa83
 pkgrel=1
 pkgdesc='Simple GTK+ frontend for mpv'
 arch=('x86_64')
 url='https://celluloid-player.github.io/'
 license=('GPL3')
-depends=('gtk4' 'libadwaita' 'mpv' 'libmpv.so')
+depends=('libadwaita' 'mpv' 'libmpv.so')
 makedepends=('appstream-glib' 'meson')
-conflicts=('gnome-mpv' 'celluloid')
+optdepends=()
 provides=('gnome-mpv' 'celluloid')
+conflicts=('gnome-mpv' 'celluloid')
 replaces=('gnome-mpv-git')
+backup=()
+options=()
+install=
+changelog=
 source=(
 	"$_pkgname::git+https://github.com/celluloid-player/celluloid.git")
 sha256sums=(

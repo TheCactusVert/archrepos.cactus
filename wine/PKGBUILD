@@ -73,9 +73,13 @@ optdepends=(
 	'openvr: VR'
 	'openxr: VR'
 )
-
+provides=("wine=${pkgver}")
+conflicts=('wine')
+replaces=()
+backup=()
 options=('staticlibs')
 install="$pkgname.install"
+changelog=
 _branch="proton_7.0"
 source=(
 	"$_pkgname::git+https://github.com/ValveSoftware/wine.git"
@@ -87,9 +91,6 @@ sha256sums=(
 	'9901a5ee619f24662b241672a7358364617227937d5f6d3126f70528ee5111e7'
 	'6dfdefec305024ca11f35ad7536565f5551f09119dda2028f194aee8f77077a4'
 	'0ff0061930783e731221498383e7c4188198a92a54431c9ab754f7ff5bd48ace')
-
-provides=("wine=${pkgver}")
-conflicts=('wine')
 
 pkgver() {
        cd $_pkgname

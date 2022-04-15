@@ -1,3 +1,5 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
 _pkgname=transmission
 pkgname=$_pkgname-daemon-cactus
 pkgver=3.00.r0.gbb6b5a062
@@ -8,9 +10,14 @@ url="http://www.transmissionbt.com/"
 license=(MIT)
 depends=(systemd libevent libnatpmp miniupnpc libb64)
 makedepends=(cmake)
+optdepends=()
 conflicts=('transmission-cli')
 provides=('transmission-cli')
 replaces=('transmission-cli')
+backup=()
+options=()
+install=
+changelog=
 _commit=bb6b5a062ee594dfd4b7a12a6b6e860c43849bfd
 source=(
 	"$_pkgname::git+https://github.com/transmission/transmission#commit=$_commit"

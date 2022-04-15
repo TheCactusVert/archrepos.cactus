@@ -1,20 +1,31 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
 _pkgname=ani-cli
 pkgname=${_pkgname}-cactus
 pkgver=2.0.r8.gb5c37c9
 pkgrel=1
-pkgdesc="A cli to browse and watch anime."
+pkgdesc="A cli to browse and watch anime"
 arch=('any')
 url="https://github.com/pystardust/ani-cli"
 license=('GPL3')
 depends=('grep' 'sed' 'curl' 'openssl' 'jq')
+makedepends=('git')
 optdepends=(
 	'celluloid: the default video player'
 	'vlc: an alternative video player'
 	'aria2: for downloading'
 	)
-makedepends=('git')
-source=("$_pkgname::git+https://github.com/pystardust/ani-cli.git")
-md5sums=('SKIP')
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/pystardust/ani-cli.git")
+sha256sums=(
+	'SKIP')
 
 pkgver() {
        cd $_pkgname

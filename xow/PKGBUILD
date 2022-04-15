@@ -10,8 +10,16 @@ url='https://github.com/medusalix/xow'
 license=('GPL2')
 depends=('libusb')
 makedepends=('cabextract')
+optdepends=()
+provides=()
 conflicts=('xow-git')
-source=("$_pkgname::git+https://github.com/medusalix/xow.git")
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/medusalix/xow.git")
 sha256sums=('SKIP')
 
 pkgver() {

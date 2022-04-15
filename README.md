@@ -5,8 +5,8 @@
 Run the following commands:
 
 ```bash
-doas pacman-key --keyserver hkps://keys.openpgp.org/ --recv-keys '72CA153D0D0A6824'
-doas pacman-key --lsign-key '72CA153D0D0A6824'
+pacman-key --keyserver hkps://keys.openpgp.org/ --recv-keys '72CA153D0D0A6824'
+pacman-key --lsign-key '72CA153D0D0A6824'
 ```
 
 Add these lines to `/etc/pacman.conf`:
@@ -20,18 +20,16 @@ Server = https://arch.gavrois.fr/$repo/os/$arch
 
 Use the following commands:
 ```bash
-doas pacman -S wine-cactus dxvk-winelib vkd3d-winelib
-winedxvk install --symlink # With or without WINEPREFIX
-winevkd3d install --symlink # With or without WINEPREFIX
+pacman -S wine-cactus
 ```
 
 ## Installing xow
 
 Use the following commands:
 ```bash
-doas pacman -S xow
-doas systemctl enable xow
-doas systemctl start xow
+pacman -S xow
+systemctl enable xow
+systemctl start xow
 ```
 
 Do not use `libusb` on version 1.0.24-2.

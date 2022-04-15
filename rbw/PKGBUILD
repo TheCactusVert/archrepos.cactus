@@ -4,16 +4,24 @@ _pkgname=rbw
 pkgname=$_pkgname-cactus
 pkgver=1.4.3.r2.g1e56f73
 pkgrel=1
-makedepends=('rust')
-depends=('pinentry')
-provides=('rbw')
-conflicts=('rbw')
+pkgdesc='Unofficial bitwarden CLI'
 arch=('x86_64' 'aarch64')
 url='https://git.tozt.net/rbw'
-source=("$_pkgname::git+https://github.com/doy/rbw.git")
-sha256sums=('SKIP')
-pkgdesc='Unofficial bitwarden CLI'
 license=('MIT')
+depends=('pinentry')
+makedepends=('rust')
+optdepends=()
+provides=('rbw')
+conflicts=('rbw')
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/doy/rbw.git")
+sha256sums=(
+	'SKIP')
 
 pkgver() {
        cd $_pkgname
