@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Kimono umbrella</name>
+    <filename>/usr/share/backgrounds/japanese/kimono-umbrella.png</filename>
+    <filename-dark>/usr/share/backgrounds/japanese/kimono-umbrella.png</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#65181c</pcolor>
+    <scolor>#c7a29e</scolor>
+  </wallpaper>
+  <wallpaper deleted="false">
+    <name>Kimono snow</name>
+    <filename>/usr/share/backgrounds/japanese/kimono-snow.jpg</filename>
+    <filename-dark>/usr/share/backgrounds/japanese/kimono-snow.jpg</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#f38eb2</pcolor>
+    <scolor>#91a0d3</scolor>
+  </wallpaper>
+</wallpapers>

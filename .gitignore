@@ -5,6 +5,8 @@
 *.part
 *.git
 *.cab
+*.jpg
+*.png
 
 # No subfolders
 */*/

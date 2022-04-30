@@ -2,7 +2,7 @@
 
 _pkgname=amberol
 pkgname=${_pkgname}-cactus
-pkgver=0.4.2.r1.gf7a1bac
+pkgver=0.5.0.r1.g1f2f0a5
 pkgrel=1
 pkgdesc="Plays music, and nothing else"
 arch=('x86_64')
