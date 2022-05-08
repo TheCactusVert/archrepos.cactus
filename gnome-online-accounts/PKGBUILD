@@ -41,6 +41,7 @@ build() {
 		-D owncloud=false \
 		-D windows_live=false \
 		-D media_server=false \
+		-D goabackend=true \
 		-D gtk_doc=true \
 		-D man=true
 	meson compile -C build
