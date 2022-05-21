@@ -1,26 +1,10 @@
-diff --git a/dlls/ntdll/unix/fsync.c b/dlls/ntdll/unix/fsync.c
-index 8f07ed59ae0..3973278e439 100644
---- a/dlls/ntdll/unix/fsync.c
-+++ b/dlls/ntdll/unix/fsync.c
-@@ -66,9 +66,10 @@ WINE_DEFAULT_DEBUG_CHANNEL(fsync);
- /* futex_waitv interface */
+diff --color -rupN a/dlls/ntdll/unix/fsync.c b/dlls/ntdll/unix/fsync.c
+--- a/dlls/ntdll/unix/fsync.c  2022-02-16 13:39:18.748009255 +0100
++++ b/dlls/ntdll/unix/fsync.c  2022-02-16 13:39:14.004819301 +0100
+@@ -51,6 +51,7 @@
  
- #ifndef __NR_futex_waitv
--
- # define __NR_futex_waitv 449
--# define FUTEX_32 2
-+#endif
-+
-+#define FUTEX_32 2
- struct futex_waitv {
-     uint64_t   val;
-     uint64_t   uaddr;
-@@ -76,8 +77,6 @@ struct futex_waitv {
-     uint32_t __reserved;
- };
+ #include "unix_private.h"
+ #include "fsync.h"
++#include <linux/futex.h>
  
--#endif
--
- #define u64_to_ptr(x) (void *)(uintptr_t)(x)
- 
- struct timespec64
+ WINE_DEFAULT_DEBUG_CHANNEL(fsync); 
