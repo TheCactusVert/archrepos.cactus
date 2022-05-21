@@ -82,12 +82,14 @@ install="$pkgname.install"
 changelog=
 source=(
 	"$_pkgname::git+https://github.com/ValveSoftware/wine.git#branch=proton_7.0"
+	'${_pkgname}.svg'
 	'30-win32-aliases.conf'
 	'wine-binfmt.conf'
 	'futex.patch'
 	'libldap.patch')
 sha512sums=(
 	'SKIP'
+	'48d62cd449f324ad17b28f61493b5a66c916c00778bae016209cf11e24849ab8729b1d4921e51ea83d25b1bd41b0d038222b95676f9fdf1ebb867a1a0de68288'
 	'ed14620f239b21b7ac507ec79af0667fc0554fb4e0ca69afb64ee535372d985be485f7f6cd842c42bc319be324bba3dc06947815948c17424ff853f0214c7297'
 	'bdde7ae015d8a98ba55e84b86dc05aca1d4f8de85be7e4bd6187054bfe4ac83b5a20538945b63fb073caab78022141e9545685e4e3698c97ff173cf30859e285'
 	'00a40047dc5cb8292bc86bd3873665ff0bc4b8efd2ba4d3a98f33fb5a1be13c722aef2608bf24690ef6184410638b050e624e6de93fbbd251b416072a47b2943'
@@ -108,7 +110,7 @@ prepare() {
 	export LDFLAGS="${LDFLAGS/,-z,now/}"
 
 	patch -p1 < ../futex.patch
-    	patch -p1 < ../libldap.patch
+	patch -p1 < ../libldap.patch
 
 	# https://github.com/ValveSoftware/wine/issues/120#issuecomment-901958052
 	./dlls/winevulkan/make_vulkan
@@ -122,7 +124,6 @@ prepare() {
 
 build() {
 	# build wine 64-bit
-	echo	'Building Wine-64...'
 	mkdir	$srcdir/build64
 	cd	$srcdir/build64
 	../$_pkgname/configure \
@@ -144,7 +145,7 @@ build() {
 		--disable-tests
 	make -j
 
-	echo	'Building Wine-32...'
+	# build wine 32-bit
 	mkdir	$srcdir/build32
 	cd	$srcdir/build32
 	../$_pkgname/configure \
@@ -169,14 +170,12 @@ build() {
 
 package() {
 	# package wine 32-bit
-	echo	'Packaging Wine-32...'
 	cd	$srcdir/build32
 	make	prefix=$pkgdir/usr \
 		libdir=$pkgdir/usr/lib32 \
 		dlldir=$pkgdir/usr/lib32/wine install
 
 	# package wine 64-bit
-	echo	'Packaging Wine-64...'
 	cd	$srcdir/build64
 	make	prefix=$pkgdir/usr \
 		libdir=$pkgdir/usr/lib \
@@ -189,4 +188,7 @@ package() {
 
 	# wine binfmt
 	install -Dm644 ${srcdir}/wine-binfmt.conf   ${pkgdir}/usr/lib/binfmt.d/wine.conf
+	
+	# icon
+	install -Dm644 ${srcdir}/${_pkgname}.svg -t ${pkgdir}/usr/share/pixmaps/
 }
