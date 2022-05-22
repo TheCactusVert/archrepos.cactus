@@ -3,7 +3,7 @@
 _pkgname=wine
 pkgname=$_pkgname-cactus
 pkgver=7.0.2.r0.gdf982e6865c
-pkgrel=1
+pkgrel=2
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'
@@ -82,7 +82,7 @@ install="$pkgname.install"
 changelog=
 source=(
 	"$_pkgname::git+https://github.com/ValveSoftware/wine.git#branch=proton_7.0"
-	'${_pkgname}.svg'
+	"$_pkgname.svg"
 	'30-win32-aliases.conf'
 	'wine-binfmt.conf'
 	'futex.patch'

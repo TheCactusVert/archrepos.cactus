@@ -1,0 +1,72 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+_pkgname=gnome-control-center
+pkgname=$_pkgname-cactus
+pkgver=42.1.r85.gde40b2579
+pkgrel=1
+pkgdesc="GNOME's main interface to configure various aspects of the desktop"
+arch=(x86_64)
+url="https://gitlab.gnome.org/GNOME/gnome-control-center"
+license=(GPL2)
+depends=(
+	accountsservice cups-pk-helper gnome-bluetooth-3.0 gnome-desktop-4
+	gnome-online-accounts gnome-settings-daemon gsettings-desktop-schemas
+	gtk4 libgtop libnma-gtk4 sound-theme-freedesktop upower libpwquality
+	gnome-color-manager smbclient libmm-glib libgnomekbd libibus libgudev
+	bolt udisks2 libadwaita gsound colord-gtk4 gcr)
+makedepends=(docbook-xsl modemmanager git python meson python-dbusmock python-gobject xorg-server-xvfb)
+#checkdepends=(python-dbusmock python-gobject xorg-server-xvfb)
+optdepends=(
+	'system-config-printer: Printer settings'
+	'gnome-user-share: WebDAV file sharing'
+	'gnome-remote-desktop: screen sharing'
+	'rygel: media sharing'
+	'openssh: remote login'
+	'power-profiles-daemon: Power profiles support')
+provides=($_pkgname)
+conflicts=($_pkgname)
+replaces=($_pkgname)
+groups=(gnome)
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://gitlab.gnome.org/GNOME/gnome-control-center.git"
+	"git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git")
+sha256sums=(
+	'SKIP'
+	'SKIP')
+
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd $_pkgname
+	
+	# Install bare logos into pixmaps, not icons
+	sed -i "/install_dir/s/'icons'/'pixmaps'/" panels/info-overview/meson.build
+	
+	git submodule init subprojects/gvc
+	git submodule set-url subprojects/gvc "$srcdir/libgnome-volume-control"
+	git submodule update
+}
+
+build() {
+	arch-meson $_pkgname build \
+		-D documentation=true \
+		-D snap=false \
+		-D malcontent=false
+	meson compile -C build
+}
+
+check() {
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	meson install -C build --destdir $pkgdir
+	install -d -o root -g 102 -m 750 "$pkgdir/usr/share/polkit-1/rules.d"
+}
