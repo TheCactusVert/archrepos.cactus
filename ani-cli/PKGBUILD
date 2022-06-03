@@ -2,7 +2,7 @@
 
 _pkgname=ani-cli
 pkgname=${_pkgname}-cactus
-pkgver=2.2.r1.g228932d
+pkgver=2.2.r4.g8272988
 pkgrel=1
 pkgdesc="A cli to browse and watch anime"
 arch=('any')

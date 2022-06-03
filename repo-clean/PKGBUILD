@@ -1,0 +1,48 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+_pkgname=repo-clean
+pkgname=${_pkgname}
+pkgver=1.0.0.r0.g37c9b49
+pkgrel=1
+pkgdesc='Tools to clean arch linux repository'
+arch=('x86_64' 'aarch64')
+url='https://github.com/SuperCuber/dotter'
+license=('Unlicense')
+depends=('gcc-libs')
+makedepends=('rust')
+optdepends=()
+provides=()
+conflicts=($_pkgname)
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/TheCactusVert/repo-clean.git")
+sha256sums=(
+	'SKIP')
+
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	rustup override set nightly
+}
+
+build() {
+	cd $_pkgname
+	cargo build --release --locked
+}
+
+check() {
+	cd $_pkgname
+	cargo test --release --locked
+}
+
+package() {
+	cd $_pkgname
+	install -Dm755 target/release/$_pkgname -t $pkgdir/usr/bin
+}

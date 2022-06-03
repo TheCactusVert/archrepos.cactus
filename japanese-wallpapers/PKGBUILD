@@ -3,7 +3,7 @@
 _pkgname=japanese-wallpapers
 pkgname=${_pkgname}-cactus
 pkgver=1.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Japanese wallpapers"
 arch=('any')
 url="https://www.gavrois/wallpapers"
@@ -22,11 +22,13 @@ changelog=
 source=(
 	"japanese-wallpapers.xml"
 	"https://gavrois.fr/wallpapers/japanese/kimono-umbrella.png"
-	"https://gavrois.fr/wallpapers/japanese/kimono-snow.jpg")
+	"https://gavrois.fr/wallpapers/japanese/kimono-snow.jpg"
+	"https://gavrois.fr/wallpapers/japanese/kimono-autumn.png")
 sha512sums=(
 	'8200fc0d021cbc4c774f7973988ac1cf5b7c9c8f4368e31ff02873ee8b0f829b729d171e1248ccaa9a878c69535b17d34ec134a90120c442e84d4b3a7613a50d'
 	'16908c08e4ca03171dee6362257a70b5f2e36869efb56f9b6b9da7f51322f44b19912a9642434e1e99df2441332767c7bc90097f84a51794f353e74259a1d750'
-	'd2f8f98c21f6d0905974a088ab1d11277af14bdc2857f1d316a97f5aa376de8e21ea1ddd927466a1d015e1e2bdea0e65ef6226d1e200958bf75ce1a8460a04db')
+	'd2f8f98c21f6d0905974a088ab1d11277af14bdc2857f1d316a97f5aa376de8e21ea1ddd927466a1d015e1e2bdea0e65ef6226d1e200958bf75ce1a8460a04db'
+	'a345f2e3f350a9be49c08ff8682fda56279d72482d79401463e32128466be2c45502b343fe10692bf7e78b8fc3fe110b2d803a37711d30e2e464611f794444dd')
 
 package() {
 	install -Dm644 -t $pkgdir/usr/share/gnome-background-properties/ japanese-wallpapers.xml
