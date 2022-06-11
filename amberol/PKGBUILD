@@ -2,13 +2,13 @@
 
 _pkgname=amberol
 pkgname=${_pkgname}-cactus
-pkgver=0.6.3.r44.gf98890f
+pkgver=0.7.0.r25.gf30cc82
 pkgrel=1
 pkgdesc="Plays music, and nothing else"
 arch=('x86_64')
 url="https://gitlab.gnome.org/ebassi/amberol"
 license=('GPL3')
-depends=('libadwaita' 'gstreamer' 'gst-plugins-base' 'gst-plugins-bad' 'gst-plugins-good')
+depends=( 'gtk4' 'libadwaita' 'gstreamer' 'gst-plugins-base' 'gst-plugins-bad')
 makedepends=('rust' 'meson' 'm4' 'appstream-glib' 'reuse')
 #checkdepends=('appstream-glib' 'reuse')
 optdepends=()

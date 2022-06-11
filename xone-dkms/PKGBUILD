@@ -2,7 +2,7 @@
 
 _pkgname=xone-dkms
 pkgname=$_pkgname-cactus
-pkgver=0.2.r32.ge018a59
+pkgver=0.2.r43.g8311a25
 pkgrel=1
 pkgdesc='Modern Linux driver for Xbox One and Xbox Series X|S controllers'
 arch=('x86_64')
@@ -36,15 +36,10 @@ package() {
 	find . -type f \( -name 'dkms.conf' -o -name '*.c' \) -exec sed -i "s/#VERSION#/$pkgver/" {} +
 	echo 'ccflags-y += -DDEBUG' >> "Kbuild"
 
-	echo "* Copying module into /usr/src..."
 	install -dm755 "${pkgdir}/usr/src/${_pkgname}-${pkgver}"
 	cp -r ${srcdir}/$_pkgname/* "${pkgdir}/usr/src/${_pkgname}-${pkgver}"
 
-	echo "* Blacklisting xpad module..."
 	install -Dm644 install/modprobe.conf "${pkgdir}/usr/lib/modprobe.d/xone-blacklist.conf"
 
-	echo "* Extracting dongle firmware..."
-	echo "* The firmware for the wireless dongle is subject to Microsoft's Terms of Use:"
-	echo "* https://www.microsoft.com/en-us/legal/terms-of-use"
 	install -Dm644 "${srcdir}/FW_ACC_00U.bin" "${pkgdir}/usr/lib/firmware/xow_dongle.bin"
 }
