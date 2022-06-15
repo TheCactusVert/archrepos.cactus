@@ -1,0 +1,73 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 6b1af50..026c045 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -8,7 +8,6 @@ version = "0.1.0"
+ edition = "2018"
+ 
+ [dependencies]
+-ashpd = { version = "0.3", features = ["feature_gtk4"] }
+ color-thief = "0.2.1"
+ gdk-pixbuf = { version = "0.15", features = ["v2_36"] }
+ gettext-rs = { version = "0.7", features = ["gettext-system"] }
+diff --git a/src/window.rs b/src/window.rs
+index 4a1d667..a650023 100644
+--- a/src/window.rs
++++ b/src/window.rs
+@@ -7,11 +7,10 @@ use std::{
+ };
+ 
+ use adw::subclass::prelude::*;
+-use ashpd::{desktop::background, WindowIdentifier};
+ use glib::{clone, closure_local, FromVariant, Receiver};
+ use gtk::{gdk, gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+ use gtk_macros::stateful_action;
+-use log::{debug, warn};
++use log::debug;
+ 
+ use crate::{
+     audio::{AudioPlayer, Song, WaveformGenerator},
+@@ -185,7 +184,6 @@ mod imp {
+             obj.setup_drop_target();
+             obj.setup_provider();
+             obj.restore_window_state();
+-            obj.request_background();
+         }
+ 
+         fn properties() -> &'static [ParamSpec] {
+@@ -1175,35 +1173,4 @@ impl Window {
+             }
+         };
+     }
+-
+-    async fn portal_request_background(&self) {
+-        let root = self.native().unwrap();
+-        let identifier = WindowIdentifier::from_native(&root).await;
+-
+-        match background::request(
+-            &identifier,
+-            &i18n("Amberol needs to run in the background to play music"),
+-            false,
+-            None::<&[&str]>,
+-            true,
+-        )
+-        .await
+-        {
+-            Ok(response) => {
+-                debug!("Background request successful: {:?}", response);
+-                self.add_toast(i18n("Amberol is running in the background"));
+-            }
+-            Err(err) => {
+-                warn!("Background request denied: {}", err);
+-                self.add_toast(i18n("Amberol cannot run in the background"));
+-            }
+-        }
+-    }
+-
+-    fn request_background(&self) {
+-        let ctx = glib::MainContext::default();
+-        ctx.spawn_local(clone!(@weak self as win => async move {
+-            win.portal_request_background().await
+-        }));
+-    }
+ }

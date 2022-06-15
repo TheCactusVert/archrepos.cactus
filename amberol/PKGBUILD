@@ -2,14 +2,14 @@
 
 _pkgname=amberol
 pkgname=${_pkgname}-cactus
-pkgver=0.7.0.r25.gf30cc82
-pkgrel=1
+pkgver=0.7.0.r44.g8265e3f
+pkgrel=2
 pkgdesc="Plays music, and nothing else"
 arch=('x86_64')
 url="https://gitlab.gnome.org/ebassi/amberol"
 license=('GPL3')
-depends=( 'gtk4' 'libadwaita' 'gstreamer' 'gst-plugins-base' 'gst-plugins-bad')
-makedepends=('rust' 'meson' 'm4' 'appstream-glib' 'reuse')
+depends=( 'gtk4' 'libadwaita' 'gstreamer' 'gst-plugins-base' 'gst-plugins-bad' 'gst-plugins-good')
+makedepends=('rust' 'meson' 'm4' 'appstream-glib' 'reuse' 'patch')
 #checkdepends=('appstream-glib' 'reuse')
 optdepends=()
 provides=()
@@ -20,13 +20,20 @@ options=()
 install=
 changelog=
 source=(
-	"$_pkgname::git+https://gitlab.gnome.org/ebassi/amberol.git")
-sha256sums=(
-	'SKIP')
+	"$_pkgname::git+https://gitlab.gnome.org/ebassi/amberol.git"
+	'ashpd.patch')
+sha512sums=(
+	'SKIP'
+	'89a13b22324ffb8ed4afe1bf8c162278497480ce4ea4906f8b79b7cc028c4f9b42be236d6cab79a0eddc40cdd9d306505917dfdb21e5f82d54b13971fb4e762c')
 
 pkgver() {
 	cd $_pkgname
 	git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd $_pkgname
+	patch -p1 < ../ashpd.patch
 }
 
 build() {
