@@ -1,0 +1,43 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index d69ae35..8e17220 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -15,11 +15,11 @@ futures = "0.3"
+ futures-util = "0.3"
+ num_enum = "0.5"
+ gettext-rs= { version = "0.7", features = ["gettext-system"] }
++glib = { version = "0.15.11", features = ["log"] }
+ gtk-macros = "0.3"
+ lazy_static = "1.4"
+ log = "0.4"
+ once_cell = "1.8"
+-pretty_env_logger = "0.4"
+ regex = "1.4"
+ magnet-uri = "0.2"
+ serde = "1.0"
+diff --git a/src/main.rs b/src/main.rs
+index 8a87a37..7b5a00b 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -20,7 +20,6 @@ extern crate gtk_macros;
+ extern crate log;
+ #[macro_use]
+ extern crate lazy_static;
+-extern crate pretty_env_logger;
+ #[macro_use]
+ extern crate strum_macros;
+ 
+@@ -42,7 +41,12 @@ use crate::app::FrgApplication;
+ 
+ fn main() {
+     // Initialize logger
+-    pretty_env_logger::init();
++    static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
++        glib::GlibLoggerFormat::Plain,
++        glib::GlibLoggerDomain::CrateTarget,
++    );
++    log::set_logger(&GLIB_LOGGER).unwrap();
++    log::set_max_level(log::LevelFilter::Debug);
+ 
+     // Initialize GTK
+     gtk::init().expect("Failed to initialize GTK.");

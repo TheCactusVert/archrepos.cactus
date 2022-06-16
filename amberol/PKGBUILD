@@ -3,7 +3,7 @@
 _pkgname=amberol
 pkgname=${_pkgname}-cactus
 pkgver=0.7.0.r44.g8265e3f
-pkgrel=2
+pkgrel=3
 pkgdesc="Plays music, and nothing else"
 arch=('x86_64')
 url="https://gitlab.gnome.org/ebassi/amberol"
@@ -21,10 +21,12 @@ install=
 changelog=
 source=(
 	"$_pkgname::git+https://gitlab.gnome.org/ebassi/amberol.git"
-	'ashpd.patch')
+	'ashpd.patch'
+	'logger.patch')
 sha512sums=(
 	'SKIP'
-	'89a13b22324ffb8ed4afe1bf8c162278497480ce4ea4906f8b79b7cc028c4f9b42be236d6cab79a0eddc40cdd9d306505917dfdb21e5f82d54b13971fb4e762c')
+	'89a13b22324ffb8ed4afe1bf8c162278497480ce4ea4906f8b79b7cc028c4f9b42be236d6cab79a0eddc40cdd9d306505917dfdb21e5f82d54b13971fb4e762c'
+	'309d3733acade47c8c97fdaf3b69c59d5dd39ec8c70a34d50abc94acfb642d962106b6d1b6fe31b81aa3de274dcc4aca0b41174fd92a60245c85f2363b04ae33')
 
 pkgver() {
 	cd $_pkgname
@@ -34,6 +36,7 @@ pkgver() {
 prepare() {
 	cd $_pkgname
 	patch -p1 < ../ashpd.patch
+	patch -p1 < ../logger.patch
 }
 
 build() {

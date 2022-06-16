@@ -1,0 +1,50 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+_pkgname=fragments
+pkgname=${_pkgname}-cactus
+pkgver=2.0.2.r41.gd7133ae
+pkgrel=1
+pkgdesc='BitTorrent client for GNOME'
+arch=('x86_64')
+url="https://gitlab.gnome.org/World/Fragments"
+license=('GPL3')
+depends=( 'gtk4' 'libadwaita' 'transmission-cli')
+makedepends=('rust' 'meson')
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=("$_pkgname")
+replaces=("$_pkgname")
+backup=()
+options=(!lto)
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://gitlab.gnome.org/World/Fragments.git"
+	'logger.patch')
+sha512sums=(
+	'SKIP'
+	'3c7edfe085d0fedd404027db87c0d0afae8fb2235f38f6867d109f45d18a42d89beb7e8e560a17c3b57950e8b796b1c879c4b421f6ee049c819999feb2afe3d2')
+
+pkgver() {
+	cd $_pkgname
+	git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd $_pkgname
+	patch -p1 < ../logger.patch
+}
+
+build() {
+	arch-meson $_pkgname build
+	meson compile -C build
+}
+
+check() {
+	meson test -C build --print-errorlogs
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install -C build
+}
