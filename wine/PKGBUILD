@@ -2,8 +2,8 @@
 
 _pkgname=wine
 pkgname=$_pkgname-cactus
-pkgver=7.0.2.r0.gdf982e6865c
-pkgrel=2
+pkgver=7.0.3.r0.ga7618abea5f
+pkgrel=1
 pkgdesc='A compatibility layer for running Windows programs (Valve version)'
 arch=('x86_64')
 url='https://github.com/ValveSoftware/wine.git'

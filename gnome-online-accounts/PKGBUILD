@@ -2,7 +2,7 @@
 
 _pkgname=gnome-online-accounts
 pkgname=$_pkgname-cactus
-pkgver=3.44.0.r2.gf939caf9
+pkgver=3.44.0.r3.g3ab0d466
 pkgrel=1
 pkgdesc="Single sign-on framework for GNOME"
 arch=('x86_64' 'aarch64')
@@ -34,7 +34,6 @@ build() {
 		-D facebook=false \
 		-D fedora=false \
 		-D flickr=false \
-		-D foursquare=false \
 		-D google=false \
 		-D kerberos=false \
 		-D lastfm=false \

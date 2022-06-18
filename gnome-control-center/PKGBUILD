@@ -2,7 +2,7 @@
 
 _pkgname=gnome-control-center
 pkgname=$_pkgname-cactus
-pkgver=42.1.r123.g43419403b
+pkgver=42.1.r134.g7f4a7c125
 pkgrel=1
 pkgdesc="GNOME's main interface to configure various aspects of the desktop"
 arch=(x86_64)
