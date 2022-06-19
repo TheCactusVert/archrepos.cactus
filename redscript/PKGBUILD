@@ -1,0 +1,49 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+_pkgname=redscript
+pkgname=${_pkgname}-cactus
+pkgver=0.5.4.r24.ge267e28
+pkgrel=1
+pkgdesc='Toolkit for working with scripts used by REDengine in Cyberpunk 2077. Currently includes a compiler, a decompiler and a disassembler'
+arch=('x86_64')
+url='https://github.com/jac3km4/redscript'
+license=(MIT)
+depends=()
+makedepends=('rust')
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/jac3km4/redscript.git")
+sha256sums=(
+	'SKIP')
+
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd $_pkgname
+	rustup override set nightly
+}
+
+build() {
+	cd $_pkgname
+	cargo build --bin redscript-cli --release
+}
+
+check() {
+	cd $_pkgname
+	cargo test --bin redscript-cli --release
+}
+
+package() {
+	cd $_pkgname
+	install -Dm755 target/release/redscript-cli $pkgdir/usr/bin/redscript
+}
