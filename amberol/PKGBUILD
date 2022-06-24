@@ -2,8 +2,8 @@
 
 _pkgname=amberol
 pkgname=${_pkgname}-cactus
-pkgver=0.7.0.r44.g8265e3f
-pkgrel=3
+pkgver=0.8.0.r36.gf43dc80
+pkgrel=1
 pkgdesc="Plays music, and nothing else"
 arch=('x86_64')
 url="https://gitlab.gnome.org/ebassi/amberol"
@@ -25,8 +25,8 @@ source=(
 	'logger.patch')
 sha512sums=(
 	'SKIP'
-	'89a13b22324ffb8ed4afe1bf8c162278497480ce4ea4906f8b79b7cc028c4f9b42be236d6cab79a0eddc40cdd9d306505917dfdb21e5f82d54b13971fb4e762c'
-	'309d3733acade47c8c97fdaf3b69c59d5dd39ec8c70a34d50abc94acfb642d962106b6d1b6fe31b81aa3de274dcc4aca0b41174fd92a60245c85f2363b04ae33')
+	'a76b68f437d77c9f83c992744988beeac55d65f29f33c1acf03d0feb8cd55ca4970c55ef5b555c87443deb7a5bb77e12e7a292d4e4be4dbb19c4f8c5582a236a'
+	'bbb825e5a27863bafc15057e87846b3de5a4d5c5966dc769af5b99827b02d3bc83678fa23da067ca4e59a1eb78ae3a419688d734db4f776b063b5cf3e81e3d9b')
 
 pkgver() {
 	cd $_pkgname
