@@ -2,8 +2,8 @@
 
 _pkgname=celluloid
 pkgname=${_pkgname}-cactus
-pkgver=0.23.r44.g51b7915
-pkgrel=2
+pkgver=0.23.r45.gf320219
+pkgrel=1
 pkgdesc='Simple GTK+ frontend for mpv'
 arch=('x86_64')
 url='https://celluloid-player.github.io/'
