@@ -1,3 +1,0 @@
-#compdef git-delta
-
-compdef _gnu_generic git-delta
