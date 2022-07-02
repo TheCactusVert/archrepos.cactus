@@ -1,0 +1,53 @@
+# Maintainer: Kevin Gavrois <kevin@gavrois.fr>
+
+_pkgname=delta
+pkgname=$_pkgname-cactus
+pkgver=0.13.0.r11.g5f8ac5f
+pkgrel=3
+pkgdesc='Syntax-highlighting pager for git and diff output'
+arch=('x86_64' 'aarch64')
+url='https://github.com/dandavison/delta'
+license=('MIT')
+depends=('libgit2' 'libgit2.so')
+makedepends=('rust')
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(
+	"$_pkgname::git+https://github.com/dandavison/delta.git")
+sha256sums=(
+	'SKIP')
+	
+pkgver() {
+       cd $_pkgname
+       git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+prepare() {
+	cd $_pkgname
+
+	# download dependencies
+	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+	cd $_pkgname
+	cargo build --release --frozen --all-features
+}
+
+check() {
+	cd $_pkgname
+	cargo test --release --frozen --all-features
+}
+
+package() {
+	cd $_pkgname
+	install -Dm755 target/release/$_pkgname -t $pkgdir/usr/bin
+	install -Dm644 etc/completion/completion.bash $pkgdir/usr/share/bash-completion/completions/$_pkgname
+	install -Dm644 etc/completion/completion.zsh $pkgdir/usr/share/zsh/site-functions/_$_pkgname
+}
