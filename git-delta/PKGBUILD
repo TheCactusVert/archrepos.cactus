@@ -3,7 +3,7 @@
 _pkgname=git-delta
 pkgname=$_pkgname-cactus
 pkgver=0.13.0.r11.g5f8ac5f
-pkgrel=4
+pkgrel=7
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=('x86_64' 'aarch64')
 url='https://github.com/dandavison/delta'
@@ -11,8 +11,8 @@ license=('MIT')
 depends=('libgit2' 'libgit2.so')
 makedepends=('rust')
 optdepends=()
-provides=()
-conflicts=()
+provides=('git-delta')
+conflicts=('git-delta' 'git-delta-git')
 replaces=()
 backup=()
 options=()
@@ -20,10 +20,10 @@ install=
 changelog=
 source=(
 	"$_pkgname::git+https://github.com/dandavison/delta.git"
-	"_delta")
+	"zsh-completions")
 sha512sums=(
 	'SKIP'
-	'3c25d1610badf3d939e81153ec1a8611740d89bedbcc847545362d527db85224ae4e3600028931cebca35115b9ef4ddd2f7dc7ef6226755b377ff83c3186679a')
+	'011ba03c9e06ba6bcdeec9bf30faabbb07fbae0b846f772b8865d412ea94263089febdaf022fc1a4bda7ffa32ba0357edc2d557db4f2aaebfbdce884b3e7f4dc')
 	
 pkgver() {
        cd $_pkgname
@@ -49,7 +49,7 @@ check() {
 
 package() {
 	cd $_pkgname
-	install -Dm755 target/release/delta -t $pkgdir/usr/bin
-	install -Dm644 etc/completion/completion.bash $pkgdir/usr/share/bash-completion/completions/delta
-	install -Dm644 $srcdir/_delta $pkgdir/usr/share/zsh/site-functions/_delta
+	install -Dm755 target/release/delta $pkgdir/usr/bin/$_pkgname
+	install -Dm644 etc/completion/completion.bash $pkgdir/usr/share/bash-completion/completions/$_pkgname
+	install -Dm644 $srcdir/zsh-completions $pkgdir/usr/share/zsh/site-functions/$_pkgname
 }
