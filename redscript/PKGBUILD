@@ -2,7 +2,7 @@
 
 _pkgname=redscript
 pkgname=${_pkgname}-cactus
-pkgver=0.6.0.r0.g08c0239
+pkgver=0.7.0.r0.g0137c13
 pkgrel=1
 pkgdesc='Toolkit for working with scripts used by REDengine in Cyberpunk 2077. Currently includes a compiler, a decompiler and a disassembler'
 arch=('x86_64')
